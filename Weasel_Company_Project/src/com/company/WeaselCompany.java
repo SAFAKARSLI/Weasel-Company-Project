@@ -12,7 +12,6 @@ public class WeaselCompany {
     public ArrayList<String> projectHistory;
     public ArrayList<String> currentProjects;
     public int budget;
-    public ArrayList<Staff> staffs;
     public ArrayList<Developer> devs;
     public ArrayList<Engineer> engineers;
     public ArrayList<Manager> managers;
@@ -26,91 +25,11 @@ public class WeaselCompany {
         this.projectHistory = new ArrayList<>();
         this.currentProjects = new ArrayList<>();
         this.budget = budget;
-        this.staffs = new ArrayList<>();
         this.devs = new ArrayList<>();
         this.engineers = new ArrayList<>();
         this.managers = new ArrayList<>();
     }
 
-    public String getCEO() {
-        return CEO;
-    }
-
-    public void setCEO(String CEO) {
-        this.CEO = CEO;
-    }
-
-    public int getEmployeeNum() {
-        return employeeNum;
-    }
-
-    public void setEmployeeNum(int employeeNum) {
-        this.employeeNum = employeeNum;
-    }
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public ArrayList<String> getProjectHistory() {
-        return projectHistory;
-    }
-
-    public void setProjectHistory(ArrayList<String> projectHistory) {
-        this.projectHistory = projectHistory;
-    }
-
-    public ArrayList<String> getCurrentProjects() {
-        return currentProjects;
-    }
-
-    public void setCurrentProjects(ArrayList<String> currentProjects) {
-        this.currentProjects = currentProjects;
-    }
-
-    public int getBudget() {
-        return budget;
-    }
-
-    public void setBudget(int budget) {
-        this.budget = budget;
-    }
-
-    public ArrayList<Staff> getStaffs() {
-        return staffs;
-    }
-
-    public void setStaffs(ArrayList<Staff> staffs) {
-        this.staffs = staffs;
-    }
-
-    public ArrayList<Developer> getDevs() {
-        return devs;
-    }
-
-    public void setDevs(ArrayList<Developer> devs) {
-        this.devs = devs;
-    }
-
-    public ArrayList<Engineer> getEngineers() {
-        return engineers;
-    }
-
-    public void setEngineers(ArrayList<Engineer> engineers) {
-        this.engineers = engineers;
-    }
-
-    public ArrayList<Manager> getManagers() {
-        return managers;
-    }
-
-    public void setManagers(ArrayList<Manager> managers) {
-        this.managers = managers;
-    }
 
     public static Manager createTheManager(String managerName) {
         return new Manager(managerName, 26, "96537234", "6.9.2017", 15700, "Harvard University", "+1 973 276 9075");
@@ -136,13 +55,32 @@ public class WeaselCompany {
         }
     }
 
-    public static void generateStuff(WeaselCompany Company, int developerNum, int engineerNum) {
+    public static void generateDevelopers(WeaselCompany Company, int developerNum) {
 
-        ArrayList<String> developers = new ArrayList<>();
-        ArrayList<String> engineers = new ArrayList<>();
-
+        for (int i = 0; i < developerNum; i++) {
+            Random rand = new Random();
+            int langNum = 3 + rand.nextInt(10);
+            ArrayList<String> Tools = generateTools(langNum);
+            int salary = generateSalary();
+            Developer developer = new Developer(generateName(),generateAge(),generateID(),generateEntranceDate(),
+                    salary, generateUniversityName(),Tools, generateMainTool(Tools), declareIfRemote(),
+                    declareTitle(salary), generateProjectName(Company),generatePhoneNumber());
+            Company.devs.add(developer);
+        }
 
     }
+
+    public static void generateEngineers(WeaselCompany Company, int engineerNum) {
+
+        for (int i = 0; i < engineerNum; i++) {
+            Random rand = new Random();
+            Engineer engineer = new Engineer(generateName(),generateAge(),generateID(),generateEntranceDate(),
+                    generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea());
+            Company.engineers.add(engineer);
+        }
+
+    }
+
 
     public static String generateName() {
 
@@ -271,37 +209,52 @@ public class WeaselCompany {
         return "+1 " + first + " " + second + " " + third ;
     }
 
+    public static ArrayList<String> generateTools(int num) {
+        String languages = "Python Java HTML CSS JavaScript PHP SQL C C++ C# Ruby R Swift";
+        ArrayList<String> lang = new ArrayList<>(Arrays.asList(languages.split(" ")));
 
-    public static void main(String[] args) {
-        WeaselCompany Company = createCompany();
-        createProjects(Company);
-        System.out.println(generateProjectName(Company));
-        System.out.println(generateUniversityName());
+        Random rand = new Random();
+        ArrayList<String> languagesList = new ArrayList<>();
+
+        for(int i=0 ; i < num; i++) {
+            int j = rand.nextInt(lang.size());
+            languagesList.add(lang.get(j));
+        }
+        return languagesList;
     }
 
+    public static String generateMainTool(ArrayList<String> tools) {
+        Random rand = new Random();
+        int i = rand.nextInt(tools.size());
+        return tools.get(i);
+    }
 
+    public static boolean declareIfRemote(){
+        Random rand = new Random();
+        int i = rand.nextInt(2);
+        if(i == 0) {
+            return false;
+        }
+        return true;
+    }
 
+    public static String declareTitle(int salary) {
+        if(salary < 8000){
+            return "Junior";
+        }
+        return "Senior";
+    }
 
+    public static String generateEngineerArea() {
+        String areas = "Mechanical Electrical Industrial Chemical Medical " +
+                "Aerospace Biomedical Civil";
+        ArrayList<String> areasList = new ArrayList<>(Arrays.asList(areas.split(" ")));
 
+        Random rand = new Random();
+        int i = rand.nextInt(areasList.size());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return areasList.get(i);
+    }
 
 
 }

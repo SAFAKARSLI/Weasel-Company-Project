@@ -17,35 +17,5 @@ public class Developer extends Staff {
         this.title = title;
     }
 
-    public ArrayList<String> getTools() {
-        return tools;
-    }
 
-    public void setTools(ArrayList<String> tools) {
-        this.tools = tools;
-    }
-
-    public String getMainTool() {
-        return mainTool;
-    }
-
-    public void setMainTool(String mainTool) {
-        this.mainTool = mainTool;
-    }
-
-    public boolean isRemote() {
-        return isRemote;
-    }
-
-    public void setRemote(boolean remote) {
-        isRemote = remote;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }

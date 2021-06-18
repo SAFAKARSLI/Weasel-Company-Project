@@ -10,11 +10,4 @@ public class Engineer extends Staff {
         this.area = area;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
 }

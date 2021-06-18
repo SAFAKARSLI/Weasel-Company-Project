@@ -49,19 +49,5 @@ public class Manager extends Staff{
         this.projects = new ArrayList<>();
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public ArrayList<String> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(ArrayList<String> projects) {
-        this.projects = projects;
-    }
 }
