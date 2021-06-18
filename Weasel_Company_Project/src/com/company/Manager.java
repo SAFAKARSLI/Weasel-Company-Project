@@ -43,25 +43,11 @@ public class Manager extends Staff{
     public ArrayList<String> projects;
 
     public Manager(String name, int age, String ID, String entranceDate,
-                   int salary, String universityName,
+                   int salary, String universityName, ArrayList<String> projects,
                    String phoneNumber) {
         super(name, age, ID, entranceDate, salary, universityName, "", phoneNumber);
-        this.projects = new ArrayList<>();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public ArrayList<String> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(ArrayList<String> projects) {
         this.projects = projects;
     }
+
+
 }
