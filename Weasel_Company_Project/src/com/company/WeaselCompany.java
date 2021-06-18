@@ -61,7 +61,6 @@ public class WeaselCompany {
 
     public static void generateManagers(WeaselCompany Company, int managerNum) {
         for (int i = 0; i < managerNum; i++) {
-            Random rand = new Random();
             ArrayList<String> projects = new ArrayList<>();
             Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
@@ -100,7 +99,6 @@ public class WeaselCompany {
     public static void generateEngineers(WeaselCompany Company, int engineerNum) {
 
         for (int i = 0; i < engineerNum; i++) {
-            Random rand = new Random();
             Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea());
             Company.engineers.add(engineer);
@@ -263,6 +261,7 @@ public class WeaselCompany {
             return false;
         }
         return true;
+
     }
 
     private static String declareTitle(int salary) {
