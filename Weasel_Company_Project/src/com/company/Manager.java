@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Options:
  * 1- Display current company statistic
@@ -35,10 +37,15 @@ package com.company;
 
 
 
-public class Manager {
+public class Manager extends Staff{
 
-    private String name;
-    private int budget;
-    private String password;
+    public String password;
+    public ArrayList<String> projects;
 
+    public Manager(String name, int age, int ID, String entranceDate,
+                   int salary, String universityName,
+                   String phoneNumber) {
+        super(name, age, ID, entranceDate, salary, universityName, "", phoneNumber);
+        this.projects = new ArrayList<>();
+    }
 }
