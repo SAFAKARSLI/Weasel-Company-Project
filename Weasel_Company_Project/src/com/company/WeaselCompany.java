@@ -40,8 +40,8 @@ public class WeaselCompany {
         return new Manager("Kevin Johns", 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900");
     }
 
-    public static WeaselCompany createCompany() {
-        return new WeaselCompany(createCEO(), 0, "5.17.2016", 100000);
+    public static WeaselCompany createCompany(Manager Ceo) {
+        return new WeaselCompany(Ceo, 0, "5.17.2016", 100000);
     }
 
     public static void createProjects(WeaselCompany Company) {
@@ -59,6 +59,16 @@ public class WeaselCompany {
         }
     }
 
+    public static void generateManagers(WeaselCompany Company, int managerNum) {
+        for (int i = 0; i < managerNum; i++) {
+            Random rand = new Random();
+            ArrayList<String> projects = new ArrayList<>();
+            Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
+                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
+            Company.managers.add(manager);
+        }
+    }
+
     public static void assignProjectsToManagers(WeaselCompany Company) {
         for (int i=0; i < Company.projectHistory.size(); i++) {
             Collections.addAll(Company.CEO.projects, Company.projectHistory.get(i));
@@ -69,16 +79,6 @@ public class WeaselCompany {
                 Company.managers.get(i).projects.add(copyOfCurrentProjects.get(0));
                 copyOfCurrentProjects.remove(0);
             }
-        }
-    }
-
-    public static void generateManagers(WeaselCompany Company, int managerNum) {
-        for (int i = 0; i < managerNum; i++) {
-            Random rand = new Random();
-            ArrayList<String> projects = new ArrayList<>();
-            Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
-                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
-            Company.managers.add(manager);
         }
     }
 
