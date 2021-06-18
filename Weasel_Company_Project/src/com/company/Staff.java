@@ -90,16 +90,7 @@ public class Staff {
 
     public void displayInformation() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("""
-1- Search by name
-2- Search by ID
-3- Search by age
-4- Search by amount of salary
-5- Search by college name
-6- Search by project name
-
-Please filter your search = 
-""");
+        System.out.println(" ");
         switch (scanner.nextLine()) {
             case "1":
                 searchByName();
