@@ -5,16 +5,18 @@ import java.util.Arrays;
 
 public class WeaselCompany {
 
-    public String CEO;
-    public int employeeNum;
-    public String birthDate;
-    public ArrayList<String> projectHistory;
-    public ArrayList<String> currentProjects;
-    public int budget;
-    public int staffNum;
-    public int devNum;
-    public int engNum;
-    public ArrayList<Manager> managers;
+    private String CEO;
+    private int employeeNum;
+    private String birthDate;
+    private ArrayList<String> projectHistory;
+    private ArrayList<String> currentProjects;
+    private int budget;
+    private ArrayList<Staff> staffs;
+    private ArrayList<Developer> devs;
+    private ArrayList<Engineer> engineers;
+    private ArrayList<Manager> managers;
+}
+
 
     public WeaselCompany(String CEO, int employeeNum, String birthDate, int budget, int staffNum, int devNum, int engNum) {
         this.CEO = CEO;
@@ -40,8 +42,6 @@ public class WeaselCompany {
     public static WeaselCompany createCompany() {
         return new WeaselCompany(createCEO().name, 0, "05.03.2016", 100000, 0,0,0);
     }
-
-
     public static void generateProjects(int num) {
         String names = "Charlie UglyFox MettlePaw Peacocks Sunergy Uzzin Ranzer Colusa WhiteJacks PrimeEight DejaVu " +
                  "Chasers CelestialInterface YoungMarker WhiteCoast MovingBird Jaguar Whistler RuddyRex ShinyWaves" ;
