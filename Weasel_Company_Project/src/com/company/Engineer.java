@@ -4,9 +4,17 @@ public class Engineer extends Staff {
 
     public String area;
 
-    public Engineer(String name, int age, int ID, String entranceDate,
+    public Engineer(String name, int age, String ID, String entranceDate,
                     int salary, String universityName, String projectName, String phoneNumber, String area) {
         super(name, age, ID, entranceDate, salary, universityName, projectName, phoneNumber);
+        this.area = area;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
         this.area = area;
     }
 }

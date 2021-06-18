@@ -6,14 +6,14 @@ import java.util.Scanner;
 public class Staff {
     public String name;
     public int age;
-    public int ID;
+    public String ID;
     public String entranceDate;
     public int salary;
     public String universityName;
     public String projectName;
     public String phoneNumber;
 
-    public Staff(String name, int age, int ID, String entranceDate, int salary, String universityName, String projectName, String phoneNumber) {
+    public Staff(String name, int age, String ID, String entranceDate, int salary, String universityName, String projectName, String phoneNumber) {
         this.name = name;
         this.age = age;
         this.ID = ID;
@@ -21,6 +21,70 @@ public class Staff {
         this.salary = salary;
         this.universityName = universityName;
         this.projectName = projectName;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getEntranceDate() {
+        return entranceDate;
+    }
+
+    public void setEntranceDate(String entranceDate) {
+        this.entranceDate = entranceDate;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public String getUniversityName() {
+        return universityName;
+    }
+
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
