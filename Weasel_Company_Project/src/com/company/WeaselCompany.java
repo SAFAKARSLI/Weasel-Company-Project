@@ -12,10 +12,9 @@ public class WeaselCompany {
     public ArrayList<String> projectHistory;
     public ArrayList<String> currentProjects;
     public int budget;
-    public ArrayList<Developer> devs;
+    public ArrayList<Developer> developers;
     public ArrayList<Engineer> engineers;
     public ArrayList<Manager> managers;
-
 
 
     public WeaselCompany(String CEO, int employeeNum, String birthDate, int budget) {
@@ -25,33 +24,60 @@ public class WeaselCompany {
         this.projectHistory = new ArrayList<>();
         this.currentProjects = new ArrayList<>();
         this.budget = budget;
-        this.devs = new ArrayList<>();
+        this.developers = new ArrayList<>();
         this.engineers = new ArrayList<>();
         this.managers = new ArrayList<>();
     }
 
 
-    public static Manager createTheManager(String managerName) {
-        return new Manager(managerName, 26, "96537234", "6.9.2017", 15700, "Harvard University", "+1 973 276 9075");
+    public static Manager createTheManager(String managerName, WeaselCompany Company) {
+        ArrayList<String> projects = new ArrayList<>();
+        Manager manager = new Manager(managerName, 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075");
+        Company.managers.add(manager);
+        return manager;
     }
 
     public static Manager createCEO() {
-        return new Manager("Cagatay Johns", 48, "0", "5.3.2016", 22500, "Columbia University","+1 235 355 3900");
+        ArrayList<String> projects = new ArrayList<>();
+        return new Manager("Kevin Johns", 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900");
     }
 
     public static WeaselCompany createCompany() {
-        return new WeaselCompany(createCEO().name, 0, "5.3.2016", 100000);
+        return new WeaselCompany(createCEO().name, 0, "5.17.2016", 100000);
     }
+
     public static void createProjects(WeaselCompany Company) {
-        String names = "Charlie UglyFox MettlePaw Peacocks Sunergy Uzzin Ranzer Colusa WhiteJacks PrimeEight DejaVu " +
-                 "Chasers CelestialInterface YoungMarker WhiteCoast MovingBird Jaguar Whistler RuddyRex ShinyWaves" ;
+        String names = "Juniper Rosemary Saffron Wisteria Wilder Violet Vinca Valerian Thorne Sherwood Sequoia Oleander " +
+                "Oakley Myrtle Meadow Linden Lily Lavender Charlie Heather Hazel Ginger Hyacinth Forsythia Camellia Calendula " +
+                "UglyFox Cerise MettlePaw Peacocks Sunergy Uzzin Ranzer Colusa WhiteJacks PrimeEight DejaVu Chasers CelestialInterface " +
+                "YoungMarker WhiteCoast MovingBird Jaguar Whistler RuddyRex ShinyWaves";
 
         ArrayList<String> nameList = new ArrayList<>(Arrays.asList(names.split(" ")));
         for (int i = 0; i < nameList.size(); i++) {
             Company.projectHistory.add(nameList.get(i));
-            if (nameList.size() - i < 6) {
-                Company.currentProjects.add(nameList.get(i));
+            if (nameList.size() - i < 18) {
+                Company.currentProjects.add(nameList.get(i).toUpperCase());
             }
+        }
+    }
+
+    public static void assignProjectsToManagers(WeaselCompany Company) {
+        ArrayList<String> copyOfCurrentProjects = Company.currentProjects;
+        for (int i = 0; i < Company.managers.size(); i++) {
+            for (int j = 0; j < 3; j++) {
+                Company.managers.get(i).projects.add(copyOfCurrentProjects.get(0));
+                copyOfCurrentProjects.remove(0);
+            }
+        }
+    }
+
+    public static void generateManagers(WeaselCompany Company, int managerNum) {
+        for (int i = 0; i < managerNum; i++) {
+            Random rand = new Random();
+            ArrayList<String> projects = new ArrayList<>();
+            Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
+                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
+            Company.managers.add(manager);
         }
     }
 
@@ -62,10 +88,10 @@ public class WeaselCompany {
             int langNum = 3 + rand.nextInt(10);
             ArrayList<String> Tools = generateTools(langNum);
             int salary = generateSalary();
-            Developer developer = new Developer(generateName(),generateAge(),generateID(),generateEntranceDate(),
-                    salary, generateUniversityName(),Tools, generateMainTool(Tools), declareIfRemote(),
-                    declareTitle(salary), generateProjectName(Company),generatePhoneNumber());
-            Company.devs.add(developer);
+            Developer developer = new Developer(generateName(), generateAge(), generateID(), generateEntranceDate(),
+                    salary, generateUniversityName(), Tools, generateMainTool(Tools), declareRemoteness(),
+                    declareTitle(salary), generateProjectName(Company), generatePhoneNumber());
+            Company.developers.add(developer);
         }
 
     }
@@ -74,7 +100,7 @@ public class WeaselCompany {
 
         for (int i = 0; i < engineerNum; i++) {
             Random rand = new Random();
-            Engineer engineer = new Engineer(generateName(),generateAge(),generateID(),generateEntranceDate(),
+            Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea());
             Company.engineers.add(engineer);
         }
@@ -113,7 +139,7 @@ public class WeaselCompany {
                 "Wilson Byrne Davis " +
                 "Evans O'Ryan Garcia " +
                 "Thomas O'Connor Rodriguez " +
-                "Roberts O'Neill Wilson " ;
+                "Roberts O'Neill Wilson ";
 
         ArrayList<String> names = new ArrayList<>(Arrays.asList(nameStr.split(" ")));
 
@@ -192,7 +218,7 @@ public class WeaselCompany {
         Random rand = new Random();
         int i = rand.nextInt(unis.size());
 
-        return unis.get(i);
+        return unis.get(i).toUpperCase();
     }
 
     public static String generateProjectName(WeaselCompany Company) {
@@ -206,7 +232,7 @@ public class WeaselCompany {
         int first = 234 + rand.nextInt(700);
         int second = 234 + rand.nextInt(700);
         int third = 2345 + rand.nextInt(7500);
-        return "+1 " + first + " " + second + " " + third ;
+        return "+1 " + first + " " + second + " " + third;
     }
 
     public static ArrayList<String> generateTools(int num) {
@@ -216,7 +242,7 @@ public class WeaselCompany {
         Random rand = new Random();
         ArrayList<String> languagesList = new ArrayList<>();
 
-        for(int i=0 ; i < num; i++) {
+        for (int i = 0; i < num; i++) {
             int j = rand.nextInt(lang.size());
             languagesList.add(lang.get(j));
         }
@@ -229,17 +255,17 @@ public class WeaselCompany {
         return tools.get(i);
     }
 
-    public static boolean declareIfRemote(){
+    public static boolean declareRemoteness() {
         Random rand = new Random();
         int i = rand.nextInt(2);
-        if(i == 0) {
+        if (i == 0) {
             return false;
         }
         return true;
     }
 
     public static String declareTitle(int salary) {
-        if(salary < 8000){
+        if (salary < 8000) {
             return "Junior";
         }
         return "Senior";
