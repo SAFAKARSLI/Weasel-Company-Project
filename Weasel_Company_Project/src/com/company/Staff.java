@@ -99,24 +99,30 @@ public class Staff {
                            "\nPlease filter your search =\n");
         switch (scanner.nextLine()) {
             case "1":
+                System.out.println("Please enter the name = ");
                 String search = scanner.nextLine();
-                printMatched( searchDeveloper(company, search) , searchEngineer(company,search));
-
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
                 break;
             case "2":
-//                searchById(company);
+                System.out.println("Please enter the ID = ");
+                search = scanner.nextLine();
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
                 break;
+            case "5":
+                System.out.println("Please enter the college name = ");
+                search = scanner.nextLine();
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
+            case "6":
+                System.out.println("Please enter the project name = ");
+                search = scanner.nextLine();
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
+                break;
+
             case "3":
 //                searchByAge(company);
                 break;
             case "4":
 //                searchBySalary(company);
-                break;
-            case "5":
-//                searchByCollegeName(company);
-                break;
-            case "6":
-//                searchByProject(company);
                 break;
             default:
                 System.out.println("Please give valid number!!!");
@@ -202,7 +208,7 @@ public class Staff {
 
     public static ArrayList<Developer> searchDeveloper(WeaselCompany company, String searched) {
         ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
-        for(Developer developer : company.devs) {
+        for(Developer developer : company.developers) {
             String current = developer.name + developer.ID + developer.universityName + developer.projectName;
             if(current.contains(searched)) {
                 matchedDevs.add(developer);
@@ -236,7 +242,7 @@ public class Staff {
         //Printing tools
         String tools = "Tools = ";
         for(int i = 0; i<developer.tools.size(); i++) {
-            tools.concat(developer.tools.get(i) + ", ");
+            tools = tools.concat(developer.tools.get(i) + ", ");
         }
         tools = tools.substring(0, tools.length()-2);
         System.out.println(tools);
@@ -262,25 +268,37 @@ public class Staff {
     }
 
     public static void printMatched(ArrayList<Developer> developers, ArrayList<Engineer> engineers) {
-        int counter = 1;
-        ArrayList<String> result = new ArrayList<String>();
-        if(developers.size() != 0) {
-            for(Developer developer : developers) {
-                System.out.println("D"+counter + "- Developer (" + developer.ID + ") -> " + developer.name);
-                counter++;
-            }
-        }
+        Scanner scanner = new Scanner(System.in);
 
-        if(engineers.size() != 0) {
-            for(Engineer engineer : engineers) {
-                System.out.println("E"+counter + "- Engineer (" + engineer.ID + ") -> " + engineer.name);
-                counter++;
-            }
-        }
-
+        //Checks if no result
         if(engineers.size() == 0 && developers.size() == 0) {
             System.out.println("No matching result...");
         }
+        int counter = 1;
+        ArrayList<String> result = new ArrayList<String>();
+        //Prints matched developers
+        if(developers.size() != 0) {
+            for(Developer developer : developers) {
+                System.out.println("D"+counter + " - Developer (" + developer.ID + ") -> " + developer.name);
+                counter++;
+            }
+        }
+        //Prints matched engineers
+        if(engineers.size() != 0) {
+            for(Engineer engineer : engineers) {
+                System.out.println("E"+counter + " - Engineer (" + engineer.ID + ") -> " + engineer.name);
+                counter++;
+            }
+        }
+
+        String answer = scanner.nextLine();
+        if(answer.startsWith("d") || answer.startsWith("D")) {
+            printDevInfo(developers.get(answer.charAt(1)));
+        }
+        else if(answer.startsWith("e") || answer.startsWith("E")) {
+            printEngineerInfo(engineers.get(answer.charAt(1)));
+        }
+
 
     }
 
