@@ -1,12 +1,10 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class WeaselCompany {
 
-    public String CEO;
+    public Manager CEO;
     public int employeeNum;
     public String birthDate;
     public ArrayList<String> projectHistory;
@@ -17,7 +15,7 @@ public class WeaselCompany {
     public ArrayList<Manager> managers;
 
 
-    public WeaselCompany(String CEO, int employeeNum, String birthDate, int budget) {
+    public WeaselCompany(Manager CEO, int employeeNum, String birthDate, int budget) {
         this.CEO = CEO;
         this.employeeNum = employeeNum;
         this.birthDate = birthDate;
@@ -43,7 +41,7 @@ public class WeaselCompany {
     }
 
     public static WeaselCompany createCompany() {
-        return new WeaselCompany(createCEO().name, 0, "5.17.2016", 100000);
+        return new WeaselCompany(createCEO(), 0, "5.17.2016", 100000);
     }
 
     public static void createProjects(WeaselCompany Company) {
@@ -62,6 +60,9 @@ public class WeaselCompany {
     }
 
     public static void assignProjectsToManagers(WeaselCompany Company) {
+        for (int i=0; i < Company.projectHistory.size(); i++) {
+            Collections.addAll(Company.CEO.projects, Company.projectHistory.get(i));
+        }
         ArrayList<String> copyOfCurrentProjects = Company.currentProjects;
         for (int i = 0; i < Company.managers.size(); i++) {
             for (int j = 0; j < 3; j++) {
