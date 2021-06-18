@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class Staff {
     public String name;
-    public int age;
+    public int age; //Aralik
     public String ID;
-    public String entranceDate;
-    public int salary;
+    public String entranceDate; //Aralik
+    public int salary; //Aralik
     public String universityName;
     public String projectName;
     public String phoneNumber;
@@ -88,62 +88,200 @@ public class Staff {
         this.phoneNumber = phoneNumber;
     }
 
-    public void displayInformation() {
+    public static void displayInformation(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("""
-1- Search by name
-2- Search by ID
-3- Search by age
-4- Search by amount of salary
-5- Search by college name
-6- Search by project name
-
-Please filter your search = 
-""");
+        System.out.println("1- Search by name\n" +
+                           "2- Search by ID\n" +
+                           "3- Search by age\n" +
+                           "4- Search by amount of salary\n" +
+                           "5- Search by college name\n" +
+                           "6- Search by project name\n" +
+                           "\nPlease filter your search =\n");
         switch (scanner.nextLine()) {
             case "1":
-                searchByName();
+                String search = scanner.nextLine();
+                printMatched( searchDeveloper(company, search) , searchEngineer(company,search));
+
                 break;
             case "2":
-//                searchByID();
+//                searchById(company);
                 break;
             case "3":
-//                searchByAge();
+//                searchByAge(company);
                 break;
             case "4":
-//                searchBySalary();
+//                searchBySalary(company);
                 break;
             case "5":
-//                searchByCollegeName();
+//                searchByCollegeName(company);
                 break;
             case "6":
-//                searchByProject();
+//                searchByProject(company);
                 break;
             default:
                 System.out.println("Please give valid number!!!");
-                displayInformation();
+                displayInformation(company);
                 break;
         }
     }
 
-    public void searchByName() {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<String> arr = new ArrayList<String>();
-        System.out.println("Please write the name = ");
+//    public static void searchByName(WeaselCompany company) {
+//
+//        Scanner scanner = new Scanner(System.in);
+//
+//        //Taking input from user
+//        System.out.println("Please write the name = ");
+//        String searchedName = scanner.nextLine().toUpperCase();
+//
+//        ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
+//        ArrayList<Engineer> matchedEngineers = new ArrayList<Engineer>();
+//
+//        // Searches matching name on Developers list
+//        for(int i = 0; i<company.devs.size(); i++) {
+//            if(company.devs.get(i).name.contains(searchedName)) {
+//                matchedDevs.add(company.devs.get(i));
+//            }
+//        }
+//
+//        // Searches matching name on Engineers list
+//        for(int i = 0; i<company.engineers.size(); i++) {
+//            if(company.engineers.get(i).name.contains(searchedName)) {
+//                matchedEngineers.add(company.engineers.get(i));
+//            }
+//        }
+//
+//        //Printing results
+//        int counter = 1;
+//        System.out.println("Matched results:\n");
+//        //Prints matched Devs
+//        if(matchedDevs.size() > 0) {
+//            for (Developer matchedDev : matchedDevs) {
+//                System.out.println(counter + "- Developer (" + matchedDev.ID + ") -> " + matchedDev.name);
+//                counter++;
+//            }
+//        }
+//        //Prints matched Engineers
+//        if(matchedEngineers.size() > 0) {
+//            for (Engineer matchedEngineer : matchedEngineers) {
+//                System.out.println(counter + "- Engineer (" + matchedEngineer.ID + ") -> " + matchedEngineer.name);
+//                counter++;
+//            }
+//        }
+//
+//        //If no matching result
+//        if(counter == 1) {
+//            System.out.println("No matching result...");
+//            displayInformation(company);
+//        }
+//
+//        while(true) {
+//            System.out.println("Please specify which staff's information do you want to see = ");
+//            int answer = scanner.nextInt();
+//
+//            //Checks if the answer is bigger than the result list
+//            if(answer > (counter-1)) {
+//                System.out.println("Please enter valid number!!!");
+//                continue;
+//            }
+//
+//            if(matchedDevs.size() == 0) {
+//                printEngineerInfo(matchedEngineers.get(answer-1));
+//            }
+//            else {
+//                if(answer-1 <= matchedDevs.size()) {
+//                    printDevInfo(matchedDevs.get(answer-1));
+//                }
+//                else {
+//                    printEngineerInfo(matchedEngineers.get( (answer-1) - matchedDevs.size()));
+//                }
+//                break;
+//            }
+//            break;
+//        }
+//    }
 
-
+    public static ArrayList<Developer> searchDeveloper(WeaselCompany company, String searched) {
+        ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
+        for(Developer developer : company.devs) {
+            String current = developer.name + developer.ID + developer.universityName + developer.projectName;
+            if(current.contains(searched)) {
+                matchedDevs.add(developer);
+            }
+        }
+        return matchedDevs;
     }
 
+    public static ArrayList<Engineer> searchEngineer(WeaselCompany company, String searched) {
+        ArrayList<Engineer> matchedEngineers = new ArrayList<Engineer>();
+        for(Engineer engineer : company.engineers) {
+            String current = engineer.name + engineer.ID + engineer.universityName + engineer.projectName;
+            if(current.contains(searched)) {
+                matchedEngineers.add(engineer);
+            }
+        }
+        return matchedEngineers;
+    }
 
+    public static void printDevInfo(Developer developer) {
+        System.out.println("Name = "+developer.name+
+                "\nID = "+ developer.ID+
+                "\nAge = "+ developer.age+
+                "\nTitle = "+ developer.title+
+                "\nMain Tool = "+ developer.mainTool+
+                "\nEntrance Date = "+ developer.entranceDate+
+                "\nSalary = "+ developer.salary+
+                "\nUniversity Name = "+ developer.universityName+
+                "\nAssigned Project = "+ developer.projectName+
+                "\nContact = "+ developer.phoneNumber);
+        //Printing tools
+        String tools = "Tools = ";
+        for(int i = 0; i<developer.tools.size(); i++) {
+            tools.concat(developer.tools.get(i) + ", ");
+        }
+        tools = tools.substring(0, tools.length()-2);
+        System.out.println(tools);
 
+        if(developer.isRemote) {
+            System.out.println("This developer is working remotely");
+        } else {
+            System.out.println("This developer is not working remotely");
+        }
+    }
 
+    public static void printEngineerInfo(Engineer engineer) {
+        System.out.println("Name = "+engineer.name+
+                "\nAge = "+ engineer.age+
+                "\nID = "+ engineer.ID+
+                "\nEntrance Date = "+ engineer.entranceDate+
+                "\nSalary = "+ engineer.salary+
+                "\nUniversity Name = "+ engineer.universityName+
+                "\nAssigned Project = "+ engineer.projectName+
+                "\nContact = "+ engineer.phoneNumber+
+                "\nArea = "+ engineer.area
+        );
+    }
 
+    public static void printMatched(ArrayList<Developer> developers, ArrayList<Engineer> engineers) {
+        int counter = 1;
+        ArrayList<String> result = new ArrayList<String>();
+        if(developers.size() != 0) {
+            for(Developer developer : developers) {
+                System.out.println("D"+counter + "- Developer (" + developer.ID + ") -> " + developer.name);
+                counter++;
+            }
+        }
 
+        if(engineers.size() != 0) {
+            for(Engineer engineer : engineers) {
+                System.out.println("E"+counter + "- Engineer (" + engineer.ID + ") -> " + engineer.name);
+                counter++;
+            }
+        }
 
+        if(engineers.size() == 0 && developers.size() == 0) {
+            System.out.println("No matching result...");
+        }
 
-
-
-
-
+    }
 
 }
