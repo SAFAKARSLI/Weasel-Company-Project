@@ -10,8 +10,8 @@ public class WeaselCompany {
     private ArrayList<String> projectHistory;
     private ArrayList<String> currentProjects;
     private int budget;
-    private int staffNum;
-    private int devNum;
-    private int engNum;
+    private ArrayList<Staff> staffs;
+    private ArrayList<Developer> devs;
+    private ArrayList<Engineer> engineers;
     private ArrayList<Manager> managers;
 }

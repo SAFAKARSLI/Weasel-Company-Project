@@ -1,6 +1,6 @@
 package com.company;
 
-/**
+/*
  * Options:
  * 1- Display current company statistic
  *      - CEO name
