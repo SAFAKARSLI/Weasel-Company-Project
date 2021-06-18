@@ -90,32 +90,32 @@ public class Staff {
 
     public static void displayInformation(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1- Search by name\n" +
+        System.out.println("\n1- Search by name\n" +
                            "2- Search by ID\n" +
                            "3- Search by age\n" +
                            "4- Search by amount of salary\n" +
                            "5- Search by college name\n" +
                            "6- Search by project name\n" +
-                           "\nPlease filter your search =\n");
+                           "\nPlease filter your search =");
         switch (scanner.nextLine()) {
             case "1":
                 System.out.println("Please enter the name = ");
-                String search = scanner.nextLine();
-                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
+                String search = scanner.nextLine().toUpperCase();
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
                 break;
             case "2":
                 System.out.println("Please enter the ID = ");
-                search = scanner.nextLine();
-                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
+                search = scanner.nextLine().toUpperCase();
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
                 break;
             case "5":
                 System.out.println("Please enter the college name = ");
-                search = scanner.nextLine();
-                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
+                search = scanner.nextLine().toUpperCase();
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
             case "6":
                 System.out.println("Please enter the project name = ");
                 search = scanner.nextLine();
-                printMatched(searchDeveloper(company, search) , searchEngineer(company,search));
+                printMatched(searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
                 break;
 
             case "3":
@@ -206,6 +206,17 @@ public class Staff {
 //        }
 //    }
 
+    public static ArrayList<Manager> searchManager (WeaselCompany company, String searched) {
+        ArrayList<Manager> matchedManagers = new ArrayList<Manager>();
+        for(Manager manager : company.managers) {
+            String current = manager.name + manager.ID + manager.universityName + manager.projectName;
+            if(current.contains(searched)) {
+                matchedManagers.add(manager);
+            }
+        }
+        return matchedManagers;
+    }
+
     public static ArrayList<Developer> searchDeveloper(WeaselCompany company, String searched) {
         ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
         for(Developer developer : company.developers) {
@@ -226,6 +237,19 @@ public class Staff {
             }
         }
         return matchedEngineers;
+    }
+
+    public static void printManagerInfo(Manager manager) {
+        System.out.println("Name = "+manager.name+
+                "\nID = "+ manager.ID+
+                "\nAge = "+ manager.age+
+                "\nEntrance Date = "+ manager.entranceDate+
+                "\nSalary = "+ manager.salary+
+                "\nUniversity Name = "+ manager.universityName+
+                "\nProject Name = "+ manager.projectName+
+                "\nContact = "+ manager.phoneNumber+
+                "\nPassword = "+ manager.password+
+                "\nProjects = "+ manager.projects);
     }
 
     public static void printDevInfo(Developer developer) {
@@ -267,11 +291,11 @@ public class Staff {
         );
     }
 
-    public static void printMatched(ArrayList<Developer> developers, ArrayList<Engineer> engineers) {
+    public static void printMatched(ArrayList<Developer> developers, ArrayList<Engineer> engineers, ArrayList<Manager> managers) {
         Scanner scanner = new Scanner(System.in);
 
         //Checks if no result
-        if(engineers.size() == 0 && developers.size() == 0) {
+        if((engineers.size() == 0) && (developers.size() == 0) && (managers.size() == 0)) {
             System.out.println("No matching result...");
         }
         int counter = 1;
@@ -290,6 +314,13 @@ public class Staff {
                 counter++;
             }
         }
+        //Prints matched managers
+        if(managers.size() != 0) {
+            for(Manager manager : managers) {
+                System.out.println("M"+manager + " - Manager (" + manager.ID + ") -> " + manager.name);
+                counter++;
+            }
+        }
 
         String answer = scanner.nextLine();
         if(answer.startsWith("d") || answer.startsWith("D")) {
@@ -297,6 +328,9 @@ public class Staff {
         }
         else if(answer.startsWith("e") || answer.startsWith("E")) {
             printEngineerInfo(engineers.get(answer.charAt(1)));
+        }
+        else if(answer.startsWith("m") || answer.startsWith("M")){
+            printManagerInfo(managers.get(answer.charAt(1)));
         }
 
 

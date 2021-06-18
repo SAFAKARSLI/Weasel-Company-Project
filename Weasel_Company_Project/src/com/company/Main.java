@@ -10,7 +10,7 @@ public class Main {
 
         WeaselCompany Company = WeaselCompany.createCompany(CEO);
 
-        Manager TheManager = WeaselCompany.createTheManager("Sam", Company);
+        Manager TheManager = WeaselCompany.createTheManager("SAM", Company);
 
         WeaselCompany.createProjects(Company);
 
@@ -19,6 +19,8 @@ public class Main {
 
         WeaselCompany.generateDevelopers(Company, 40);
         WeaselCompany.generateEngineers(Company, 20);
+
+        Staff.displayInformation(Company);
 
 
 
