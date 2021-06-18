@@ -109,7 +109,7 @@ public class WeaselCompany {
     }
 
 
-    public static String generateName() {
+    private static String generateName() {
 
         String nameStr = "Oliver Jake Noah James " +
                 "Jack Connor Liam John " +
@@ -153,18 +153,18 @@ public class WeaselCompany {
 
     }
 
-    public static int generateAge() {
+    private static int generateAge() {
         Random rand = new Random();
         return 18 + rand.nextInt(32);
     }
 
-    public static String generateID() {
+    private static String generateID() {
         Random rand = new Random();
         int id = 9783526 + rand.nextInt(1000000);
         return Integer.toString(id);
     }
 
-    public static String generateEntranceDate() {
+    private static String generateEntranceDate() {
         Random rand = new Random();
         int month = 1 + rand.nextInt(12);
         int day = 1 + rand.nextInt(27);
@@ -172,12 +172,12 @@ public class WeaselCompany {
         return month + "." + day + "." + year;
     }
 
-    public static int generateSalary() {
+    private static int generateSalary() {
         Random rand = new Random();
         return 5000 + rand.nextInt(10000);
     }
 
-    public static String generateUniversityName() {
+    private static String generateUniversityName() {
         String universities = "University of Oxford;" +
                 "University of Cambridge;" +
                 "California Institute of Technology;" +
@@ -222,13 +222,13 @@ public class WeaselCompany {
         return unis.get(i).toUpperCase();
     }
 
-    public static String generateProjectName(WeaselCompany Company) {
+    private static String generateProjectName(WeaselCompany Company) {
         Random rand = new Random();
         int i = rand.nextInt(Company.currentProjects.size());
         return "Project " + Company.currentProjects.get(i);
     }
 
-    public static String generatePhoneNumber() {
+    private static String generatePhoneNumber() {
         Random rand = new Random();
         int first = 234 + rand.nextInt(700);
         int second = 234 + rand.nextInt(700);
@@ -236,7 +236,7 @@ public class WeaselCompany {
         return "+1 " + first + " " + second + " " + third;
     }
 
-    public static ArrayList<String> generateTools(int num) {
+    private static ArrayList<String> generateTools(int num) {
         String languages = "Python Java HTML CSS JavaScript PHP SQL C C++ C# Ruby R Swift";
         ArrayList<String> lang = new ArrayList<>(Arrays.asList(languages.split(" ")));
 
@@ -250,13 +250,13 @@ public class WeaselCompany {
         return languagesList;
     }
 
-    public static String generateMainTool(ArrayList<String> tools) {
+    private static String generateMainTool(ArrayList<String> tools) {
         Random rand = new Random();
         int i = rand.nextInt(tools.size());
         return tools.get(i);
     }
 
-    public static boolean declareRemoteness() {
+    private static boolean declareRemoteness() {
         Random rand = new Random();
         int i = rand.nextInt(2);
         if (i == 0) {
@@ -265,14 +265,14 @@ public class WeaselCompany {
         return true;
     }
 
-    public static String declareTitle(int salary) {
+    private static String declareTitle(int salary) {
         if (salary < 8000) {
             return "Junior";
         }
         return "Senior";
     }
 
-    public static String generateEngineerArea() {
+    private static String generateEngineerArea() {
         String areas = "Mechanical Electrical Industrial Chemical Medical " +
                 "Aerospace Biomedical Civil";
         ArrayList<String> areasList = new ArrayList<>(Arrays.asList(areas.split(" ")));
