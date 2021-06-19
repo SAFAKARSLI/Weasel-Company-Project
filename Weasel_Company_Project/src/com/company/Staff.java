@@ -99,26 +99,17 @@ public class Staff {
                 "4- Request vacation\n" +
                 "What do you want to request?");
 
-        switch (scan.nextLine().toUpperCase()) {
-            case "1":
-            case "QUIT":
-            case "QUIT JOB":
-            case "QUIT THE JOB":
+        switch (scan.nextInt()) {
+            case 1:
 //                quitRequest(company));
                 break;
-            case "2":
-            case "RISE":
-            case "REQUEST A RISE":
+            case 2:
 //                riseRequest(company);
                 break;
-            case "3":
-            case "PROMOTION":
-            case "REQUEST A PROMOTION":
+            case 3:
 //                promotionRequest(company);
                 break;
-            case "4":
-            case "VACATION":
-            case "REQUEST VACATION":
+            case 4:
 //                vacationRequest(company);
                 break;
             default:
@@ -150,12 +141,12 @@ public class Staff {
                            "5- Search by college name\n" +
                            "6- Search by project name\n" +
                            "\nPlease filter your search =");
-        String answer = scanner.nextLine().toUpperCase();
+        String answer = scanner.nextLine();
         switch (answer) {
             case "1":
                 System.out.println("Please enter the name = ");
                 String search = scanner.nextLine().toUpperCase();
-                printMatched(company, searchStaff(company, search, answer));
+                printMatched(company, searchStaff(company, search, answer ));
                 break;
             case "2":
                 System.out.println("Please enter the ID = ");
@@ -169,97 +160,20 @@ public class Staff {
                 break;
             case "6":
                 System.out.println("Please enter the project name = ");
-                search = scanner.nextLine();
+                search = scanner.nextLine().toUpperCase();
                 printMatched(company, searchStaff(company, search, answer));
                 break;
 
             case "3":
-            case "AGE":
             case "4":
-            case "SALARY":
                 searchByDefiningRange(company);
                 break;
             default:
-                System.out.println("You can only select options listed above!!!");
+                System.out.println("Please enter a valid number!!!");
                 displayInformation(company);
                 break;
         }
     }
-
-//    public static void searchByName(WeaselCompany company) {
-//
-//        Scanner scanner = new Scanner(System.in);
-//
-//        //Taking input from user
-//        System.out.println("Please write the name = ");
-//        String searchedName = scanner.nextLine().toUpperCase();
-//
-//        ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
-//        ArrayList<Engineer> matchedEngineers = new ArrayList<Engineer>();
-//
-//        // Searches matching name on Developers list
-//        for(int i = 0; i<company.devs.size(); i++) {
-//            if(company.devs.get(i).name.contains(searchedName)) {
-//                matchedDevs.add(company.devs.get(i));
-//            }
-//        }
-//
-//        // Searches matching name on Engineers list
-//        for(int i = 0; i<company.engineers.size(); i++) {
-//            if(company.engineers.get(i).name.contains(searchedName)) {
-//                matchedEngineers.add(company.engineers.get(i));
-//            }
-//        }
-//
-//        //Printing results
-//        int counter = 1;
-//        System.out.println("Matched results:\n");
-//        //Prints matched Devs
-//        if(matchedDevs.size() > 0) {
-//            for (Developer matchedDev : matchedDevs) {
-//                System.out.println(counter + "- Developer (" + matchedDev.ID + ") -> " + matchedDev.name);
-//                counter++;
-//            }
-//        }
-//        //Prints matched Engineers
-//        if(matchedEngineers.size() > 0) {
-//            for (Engineer matchedEngineer : matchedEngineers) {
-//                System.out.println(counter + "- Engineer (" + matchedEngineer.ID + ") -> " + matchedEngineer.name);
-//                counter++;
-//            }
-//        }
-//
-//        //If no matching result
-//        if(counter == 1) {
-//            System.out.println("No matching result...");
-//            displayInformation(company);
-//        }
-//
-//        while(true) {
-//            System.out.println("Please specify which staff's information do you want to see = ");
-//            int answer = scanner.nextInt();
-//
-//            //Checks if the answer is bigger than the result list
-//            if(answer > (counter-1)) {
-//                System.out.println("Please enter valid number!!!");
-//                continue;
-//            }
-//
-//            if(matchedDevs.size() == 0) {
-//                printEngineerInfo(matchedEngineers.get(answer-1));
-//            }
-//            else {
-//                if(answer-1 <= matchedDevs.size()) {
-//                    printDevInfo(matchedDevs.get(answer-1));
-//                }
-//                else {
-//                    printEngineerInfo(matchedEngineers.get( (answer-1) - matchedDevs.size()));
-//                }
-//                break;
-//            }
-//            break;
-//        }
-//    }
 
     public static void searchByDefiningRange(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
@@ -298,6 +212,9 @@ public class Staff {
 
         }
 
+        if(matched.size() == 0) {
+            matched = null;
+        }
         printMatched(company,matched);
 
     }
@@ -409,6 +326,10 @@ public class Staff {
             }
             System.out.println("Which staff's information do you want to see = ");
             int answer = scanner.nextInt();
+            if(answer > matchedStaff.size()) {
+                System.out.println("Out of bounds!!!\n");
+                printMatched(company, matchedStaff);
+            }
             if(matchedStaff.get(answer - 1).job.equals("D")) {
                 printDevInfo((Developer) matchedStaff.get(answer - 1));
             }
