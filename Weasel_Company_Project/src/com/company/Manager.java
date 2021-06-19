@@ -36,8 +36,6 @@ import java.util.Scanner;
 
 
 
-
-
 public class Manager extends Staff{
 
     public String password;
@@ -52,47 +50,6 @@ public class Manager extends Staff{
         this.projects = projects;
         this.requests = new ArrayList<>();
     }
-
-//    public static void quitRequest(WeaselCompany company) {
-//        Scanner scanner = new Scanner(System.in);
-//        //Listed reasons
-//        ArrayList<String> quitReasons = new ArrayList<String>(Arrays.asList("Lack of Salary","Family Issue","Issue With Some Staffs",
-//                "Looking For A New Challenge","Health Reason"));
-//        //Printing reasons properly
-//        for(int i = 0; i<quitReasons.size(); i++) {
-//            System.out.println((i+1) + "- "+quitReasons.get(i));
-//        }
-//        System.out.println("Why do you want to quit?");
-//        int reasonNum = scanner.nextInt();
-////        writePetition(manager,0);
-//    }
-
-//    public static void makeRequest(WeaselCompany company) {
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("1- Quit The Job\n" +
-//                "2- Request a Rise\n" +
-//                "3- Request a Promotion\n" +
-//                "4- Request vacation\n" +
-//                "What do you want to request?");
-//
-//        switch (scan.nextInt()) {
-//            case 1:
-////                quitRequest(company));
-//                break;
-//            case 2:
-////                riseRequest(company);
-//                break;
-//            case 3:
-////                promotionRequest(company);
-//                break;
-//            case 4:
-////                vacationRequest(company);
-//                break;
-//            default:
-//                System.out.println("You can only select option listed above!!!");
-//                makeRequest(company);
-//        }
-//    }
 
     public static void displayInformation(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
@@ -151,7 +108,7 @@ public class Manager extends Staff{
             System.out.println("Upper limit must bigger than lower limit!!");
             searchByDefiningRange(company);
         }
-        //If the user is looking for age
+        //If the user is asking for age
         if(lowerLimit <= 50) {
             //Gets matching developers
             for(Staff staff : company.staffs) {
@@ -159,9 +116,8 @@ public class Manager extends Staff{
                     matched.add(staff);
                 }
             }
-
         }
-        //If the user is looking for salary
+        //If the user is asking for salary
         else {
             //Gets matching developers
             for(Staff staff : company.staffs) {
@@ -237,7 +193,8 @@ public class Manager extends Staff{
                 "\nSalary = "+ developer.salary+
                 "\nUniversity Name = "+ developer.universityName+
                 "\nAssigned Project = "+ developer.projectName+
-                "\nContact = "+ developer.phoneNumber);
+                "\nContact = "+ developer.phoneNumber
+        );
         //Printing tools
         String tools = "Tools = ";
         for(int i = 0; i<developer.tools.size(); i++) {
@@ -300,10 +257,6 @@ public class Manager extends Staff{
                 printManagerInfo((Manager) matchedStaff.get(answer-1));
             }
         }
-
-
-
-
     }
 
 
