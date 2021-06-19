@@ -322,7 +322,7 @@ public class WeaselCompany {
         return areasList.get(i);
     }
 
-    private static String generateRequestID() {
+    public static String generateRequestID() {
         Random rand = new Random();
         int id = 2346 + rand.nextInt(1000000);
         return Integer.toString(id);
