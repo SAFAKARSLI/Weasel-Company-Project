@@ -13,6 +13,7 @@ public class WeaselCompany {
     public ArrayList<Developer> developers;
     public ArrayList<Engineer> engineers;
     public ArrayList<Manager> managers;
+    public ArrayList<Staff> staffs;
 
 
     public WeaselCompany(Manager CEO, int employeeNum, String birthDate, int budget) {
@@ -25,6 +26,7 @@ public class WeaselCompany {
         this.developers = new ArrayList<>();
         this.engineers = new ArrayList<>();
         this.managers = new ArrayList<>();
+        this.staffs = new ArrayList<>();
     }
 
 
@@ -32,6 +34,7 @@ public class WeaselCompany {
         ArrayList<String> projects = new ArrayList<>();
         Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075");
         Company.managers.add(manager);
+        Company.staffs.add(manager);
         return manager;
     }
 
@@ -65,6 +68,7 @@ public class WeaselCompany {
             Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
             Company.managers.add(manager);
+            Company.staffs.add(manager);
         }
     }
 
@@ -92,6 +96,7 @@ public class WeaselCompany {
                     salary, generateUniversityName(), Tools, generateMainTool(Tools), declareRemoteness(),
                     declareTitle(salary), generateProjectName(Company), generatePhoneNumber());
             Company.developers.add(developer);
+            Company.staffs.add(developer);
         }
 
     }
@@ -102,6 +107,7 @@ public class WeaselCompany {
             Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea());
             Company.engineers.add(engineer);
+            Company.staffs.add(engineer);
         }
 
     }

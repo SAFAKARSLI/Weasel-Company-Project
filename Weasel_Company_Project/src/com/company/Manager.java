@@ -1,6 +1,8 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Options:
@@ -45,8 +47,22 @@ public class Manager extends Staff{
     public Manager(String name, int age, String ID, String entranceDate,
                    int salary, String universityName, ArrayList<String> projects,
                    String phoneNumber) {
-        super(name, age, ID, entranceDate, salary, universityName, "", phoneNumber);
+        super(name, age, ID, entranceDate, salary, universityName, "", phoneNumber,"M");
         this.projects = projects;
+    }
+
+    public static void quitRequest(WeaselCompany company) {
+        Scanner scanner = new Scanner(System.in);
+        //Listed reasons
+        ArrayList<String> quitReasons = new ArrayList<String>(Arrays.asList("Lack of Salary","Family Issue","Issue With Some Staffs",
+                "Looking For A New Challenge","Health Reason"));
+        //Printing reasons properly
+        for(int i = 0; i<quitReasons.size(); i++) {
+            System.out.println((i+1) + "- "+quitReasons.get(i));
+        }
+        System.out.println("Why do you want to quit?");
+        int reasonNum = scanner.nextInt();
+//        writePetition(manager,0);
     }
 
 

@@ -13,8 +13,9 @@ public class Staff {
     public String universityName;
     public String projectName;
     public String phoneNumber;
+    public String job;
 
-    public Staff(String name, int age, String ID, String entranceDate, int salary, String universityName, String projectName, String phoneNumber) {
+    public Staff(String name, int age, String ID, String entranceDate, int salary, String universityName, String projectName, String phoneNumber, String job) {
         this.name = name;
         this.age = age;
         this.ID = ID;
@@ -23,6 +24,7 @@ public class Staff {
         this.universityName = universityName;
         this.projectName = projectName;
         this.phoneNumber = phoneNumber;
+        this.job = job;
     }
 
     public String getName() {
@@ -139,29 +141,6 @@ public class Staff {
 //        writePetition(manager,0);
     }
 
-//    public static ArrayList<String> writePetition(Manager manager,int reasonNum) {
-//        ArrayList<String> blanks = new ArrayList<String>();
-//        Scanner scanner = new Scanner(System.in);
-//        switch (reasonNum) {
-//            case 0:
-//                System.out.println("I want to quit due to the having lack of salary. Sincerely...\n Signing: \n");
-//                String sign = scanner.next();
-//                break;
-//            case 1:
-//                System.out.println("I want to quit due to the having family issue. Sincerely...");
-//                break;
-//            case 2:
-//                System.out.println("I want to quit due to the having issue with some staffs. Sincerely...");
-//                break;
-//            case 3:
-//                System.out.println("I want to quit due to the looking for a new challenge. Sincerely...");
-//                break;
-//            case 4:
-//                System.out.println("I want to quit due to the having health issue. Sincerely...");
-//                break;
-//        }
-//    }
-
     public static void displayInformation(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n1- Search by name\n" +
@@ -171,32 +150,27 @@ public class Staff {
                            "5- Search by college name\n" +
                            "6- Search by project name\n" +
                            "\nPlease filter your search =");
-        switch (scanner.nextLine().toUpperCase()) {
+        String answer = scanner.nextLine().toUpperCase();
+        switch (answer) {
             case "1":
-            case "NAME":
                 System.out.println("Please enter the name = ");
                 String search = scanner.nextLine().toUpperCase();
-                printMatched(company, searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
+                printMatched(company, searchStaff(company, search, answer));
                 break;
             case "2":
-            case "ID":
                 System.out.println("Please enter the ID = ");
                 search = scanner.nextLine().toUpperCase();
-                printMatched(company, searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
+                printMatched(company, searchStaff(company, search, answer));
                 break;
             case "5":
-            case "COLLEGE":
-            case "COLLEGE NAME":
                 System.out.println("Please enter the college name = ");
                 search = scanner.nextLine().toUpperCase();
-                printMatched(company, searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
+                printMatched(company, searchStaff(company, search, answer));
                 break;
             case "6":
-            case "PROJECT":
-            case "PROJECT NAME":
                 System.out.println("Please enter the project name = ");
                 search = scanner.nextLine();
-                printMatched(company, searchDeveloper(company, search) , searchEngineer(company,search) , searchManager(company,search));
+                printMatched(company, searchStaff(company, search, answer));
                 break;
 
             case "3":
@@ -289,9 +263,7 @@ public class Staff {
 
     public static void searchByDefiningRange(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
-        ArrayList<Engineer> matchedEngineers = new ArrayList<Engineer>();
-        ArrayList<Manager> matchedManagers = new ArrayList<Manager>();
+        ArrayList<Staff> matched = new ArrayList<Staff>();
 
         //Setting upper and lower limits of age
         System.out.println("Please give a range (Lower Limit) = ");
@@ -308,84 +280,57 @@ public class Staff {
         //If the user is looking for age
         if(lowerLimit <= 50) {
             //Gets matching developers
-            for(Developer developer : company.developers) {
-                if(developer.age <= upperLimit && developer.age >= lowerLimit) {
-                    matchedDevs.add(developer);
-                }
-            }
-            //Gets matching engineers
-            for(Engineer engineer : company.engineers) {
-                if(engineer.age <= upperLimit && engineer.age >= lowerLimit) {
-                    matchedEngineers.add(engineer);
-                }
-            }
-            //Gets matching managers
-            for(Manager manager : company.managers) {
-                if(manager.age <= upperLimit && manager.age >= lowerLimit) {
-                    matchedManagers.add(manager);
+            for(Staff staff : company.staffs) {
+                if(staff.age <= upperLimit && staff.age >= lowerLimit) {
+                    matched.add(staff);
                 }
             }
 
-            printMatched(company,matchedDevs,matchedEngineers,matchedManagers);
         }
         //If the user is looking for salary
         else {
             //Gets matching developers
-            for(Developer developer : company.developers) {
-                if(developer.salary <= upperLimit && developer.salary >= lowerLimit) {
-                    matchedDevs.add(developer);
-                }
-            }
-            //Gets matching engineers
-            for(Engineer engineer : company.engineers) {
-                if(engineer.salary <= upperLimit && engineer.salary >= lowerLimit) {
-                    matchedEngineers.add(engineer);
-                }
-            }
-            //Gets matching managers
-            for(Manager manager : company.managers) {
-                if(manager.salary <= upperLimit && manager.salary >= lowerLimit) {
-                    matchedManagers.add(manager);
+            for(Staff staff : company.staffs) {
+                if(staff.salary <= upperLimit && staff.salary >= lowerLimit) {
+                    matched.add(staff);
                 }
             }
 
-            printMatched(company, matchedDevs,matchedEngineers,matchedManagers);
         }
+
+        printMatched(company,matched);
 
     }
 
-    public static ArrayList<Manager> searchManager (WeaselCompany company, String searched) {
-        ArrayList<Manager> matchedManagers = new ArrayList<Manager>();
-        for(Manager manager : company.managers) {
-            String current = manager.name + manager.ID + manager.universityName + manager.projectName;
-            if(current.contains(searched)) {
-                matchedManagers.add(manager);
+    public static ArrayList<Staff> searchStaff(WeaselCompany company, String searched, String searchBy) {
+        ArrayList<Staff> matched = new ArrayList<Staff>();
+        for(Staff staff : company.staffs) {
+            switch (searchBy) {
+                case "1":
+                    if(staff.name.contains(searched)) {
+                        matched.add(staff);
+                    }
+                    break;
+                case "2":
+                    if(staff.ID.contains(searched)) {
+                        matched.add(staff);
+                    }
+                    break;
+                case "5":
+                    if(staff.universityName.contains(searched)) {
+                        matched.add(staff);
+                    }
+                    break;
+                case "6":
+                    if(staff.projectName.contains(searched)) {
+                        matched.add(staff);
+                    }
+                    break;
             }
         }
-        return matchedManagers;
+       return matched.size() == 0 ? null : matched;
     }
 
-    public static ArrayList<Developer> searchDeveloper(WeaselCompany company, String searched) {
-        ArrayList<Developer> matchedDevs = new ArrayList<Developer>();
-        for(Developer developer : company.developers) {
-            String current = developer.name + developer.ID + developer.universityName + developer.projectName;
-            if(current.contains(searched)) {
-                matchedDevs.add(developer);
-            }
-        }
-        return matchedDevs;
-    }
-
-    public static ArrayList<Engineer> searchEngineer(WeaselCompany company, String searched) {
-        ArrayList<Engineer> matchedEngineers = new ArrayList<Engineer>();
-        for(Engineer engineer : company.engineers) {
-            String current = engineer.name + engineer.ID + engineer.universityName + engineer.projectName;
-            if(current.contains(searched)) {
-                matchedEngineers.add(engineer);
-            }
-        }
-        return matchedEngineers;
-    }
 
     public static void printManagerInfo(Manager manager) {
         System.out.println("\nName = "+manager.name+
@@ -445,50 +390,37 @@ public class Staff {
         );
     }
 
-    public static void printMatched(WeaselCompany company, ArrayList<Developer> developers, ArrayList<Engineer> engineers, ArrayList<Manager> managers) {
+    public static void printMatched(WeaselCompany company, ArrayList<Staff> matchedStaff) {
         Scanner scanner = new Scanner(System.in);
 
         //Checks if no result
-        if((engineers.size() == 0) && (developers.size() == 0) && (managers.size() == 0)) {
+        if(matchedStaff == null) {
             System.out.println("No matching result...");
             displayInformation(company);
         }
-        int counter = 1;
-        ArrayList<String> result = new ArrayList<String>();
-        //Prints matched developers
-        if(developers.size() != 0) {
-            for(Developer developer : developers) {
-                System.out.println("D"+counter + " - Developer (" + developer.ID + ") -> " + developer.name);
+        else {
+            //Prints matched staffs
+            int counter= 1;
+            for(Staff staff : matchedStaff) {
+                //Gets class name properly
+                String className = staff.getClass().getName().substring(staff.getClass().getName().lastIndexOf(".")+1);
+                System.out.println(counter+ " - "+className+" (" + staff.ID + ") -> " + staff.name);
                 counter++;
             }
-        }
-        //Prints matched engineers
-        if(engineers.size() != 0) {
-            counter =1;
-            for(Engineer engineer : engineers) {
-                System.out.println("E"+counter + " - Engineer (" + engineer.ID + ") -> " + engineer.name);
-                counter++;
+            System.out.println("Which staff's information do you want to see = ");
+            int answer = scanner.nextInt();
+            if(matchedStaff.get(answer - 1).job.equals("D")) {
+                printDevInfo((Developer) matchedStaff.get(answer - 1));
             }
-        }
-        //Prints matched managers
-        if(managers.size() != 0) {
-            counter = 1;
-            for(Manager manager : managers) {
-                System.out.println("M"+counter + " - Manager (" + manager.ID + ") -> " + manager.name);
-                counter++;
+            else if(matchedStaff.get(answer-1).job.equals("E")) {
+                printEngineerInfo((Engineer) matchedStaff.get(answer-1));
+            }
+            else {
+                printManagerInfo((Manager) matchedStaff.get(answer-1));
             }
         }
 
-        String answer = scanner.nextLine();
-        if(answer.startsWith("d") || answer.startsWith("D")) {
-            printDevInfo(developers.get(Integer.parseInt(answer.substring(1,answer.length()))-1));
-        }
-        else if(answer.startsWith("e") || answer.startsWith("E")) {
-            printEngineerInfo(engineers.get(Integer.parseInt(answer.substring(1,answer.length()))-1));
-        }
-        else if(answer.startsWith("m") || answer.startsWith("M")){
-            printManagerInfo(managers.get(Integer.parseInt(answer.substring(1,answer.length()))-1));
-        }
+
 
 
     }
