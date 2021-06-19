@@ -409,7 +409,7 @@ public class WeaselCompany {
     public static void displayMainMenu(WeaselCompany Company, Manager manager){
         int checklist = 5;
 
-        System.out.println("Main Menu\n" +
+        System.out.println("\n\nMain Menu\n\n" +
                 "1: Display Company Info\n" +
                 "2: Display My Schedule\n" +
                 "3: Open Up My Inbox\n" +
