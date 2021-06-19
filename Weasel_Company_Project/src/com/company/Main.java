@@ -1,29 +1,30 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        // displayLoginScreen();
+        Scanner scanner = new Scanner(System.in);
+        String[] initialInfo = Manager.displayLoginScreen(scanner);
 
         Manager CEO = WeaselCompany.createCEO();
 
-        WeaselCompany company = WeaselCompany.createCompany(CEO);
+        WeaselCompany Company = WeaselCompany.createCompany(CEO);
 
-        Manager theManager = WeaselCompany.createTheManager("Sam Jason","password", company);
+        Manager TheManager = Company.createTheManager(initialInfo[0],initialInfo[1]);
 
-        WeaselCompany.createProjects(company);
+        Company.createProjects();
 
-        WeaselCompany.generateManagers(company, 3);
-        WeaselCompany.generateDevelopers(company, 400);
-        WeaselCompany.generateEngineers(company, 200);
+        Company.generateManagers(3);
+        Company.generateDevelopers(400);
+        Company.generateEngineers(200);
 
-        WeaselCompany.assignProjectsToManagers(company);
-        WeaselCompany.formCrews(company);
+        Company.assignProjectsToManagers();
+        Company.formCrews();
 
-
-
-
+        Manager.displayToDo(Company, TheManager, 7);
 
 
 
