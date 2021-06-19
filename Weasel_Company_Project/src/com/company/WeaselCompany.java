@@ -1,11 +1,14 @@
 package com.company;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 public class WeaselCompany {
 
     public Manager CEO;
-    public int employeeNum;
+    public int totalStuffNum;
     public String birthDate;
     public ArrayList<String> projectHistory;
     public ArrayList<String> currentProjects;
@@ -16,9 +19,9 @@ public class WeaselCompany {
     public ArrayList<Staff> staffs;
 
 
-    public WeaselCompany(Manager CEO, int employeeNum, String birthDate, int budget) {
+    public WeaselCompany(Manager CEO, String birthDate, int budget) {
         this.CEO = CEO;
-        this.employeeNum = employeeNum;
+        this.totalStuffNum = 0;
         this.birthDate = birthDate;
         this.projectHistory = new ArrayList<>();
         this.currentProjects = new ArrayList<>();
@@ -30,9 +33,9 @@ public class WeaselCompany {
     }
 
 
-    public static Manager createTheManager(String managerName, WeaselCompany Company) {
+    public static Manager createTheManager(String managerName, String password ,WeaselCompany Company) {
         ArrayList<String> projects = new ArrayList<>();
-        Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075");
+        Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075", password);
         Company.managers.add(manager);
         Company.staffs.add(manager);
         return manager;
@@ -40,11 +43,11 @@ public class WeaselCompany {
 
     public static Manager createCEO() {
         ArrayList<String> projects = new ArrayList<>();
-        return new Manager("Kevin Johns".toUpperCase(), 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900");
+        return new Manager("Kevin Johns".toUpperCase(), 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900", "Ceo's Password");
     }
 
     public static WeaselCompany createCompany(Manager Ceo) {
-        return new WeaselCompany(Ceo, 0, "5.17.2016", 100000);
+        return new WeaselCompany(Ceo, "5.17.2016", 100000);
     }
 
     public static void createProjects(WeaselCompany Company) {
@@ -66,7 +69,7 @@ public class WeaselCompany {
         for (int i = 0; i < managerNum; i++) {
             ArrayList<String> projects = new ArrayList<>();
             Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
-                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
+                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber(), generatePassword());
             Company.managers.add(manager);
             Company.staffs.add(manager);
         }
@@ -83,6 +86,7 @@ public class WeaselCompany {
                 copyOfCurrentProjects.remove(0);
             }
         }
+        Company.setTotalStuffNum();
     }
 
     public static void generateDevelopers(WeaselCompany Company, int developerNum) {
@@ -112,6 +116,9 @@ public class WeaselCompany {
 
     }
 
+    public void setTotalStuffNum() {
+        this.totalStuffNum = 1 + this.managers.size() + this.developers.size() + this.engineers.size();
+    }
 
     private static String generateName() {
 
@@ -240,6 +247,18 @@ public class WeaselCompany {
         return "+1 " + first + " " + second + " " + third;
     }
 
+    private static String generatePassword() {
+        String password = "";
+        Random rand = new Random();
+        for (int i=0; i<4; i++) {
+            int numbers = rand.nextInt(100);
+            String[] alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+            int letterIndex = rand.nextInt(alphabet.length);
+            password = password + numbers + alphabet[letterIndex];
+        }
+        return password;
+    }
+
     private static ArrayList<String> generateTools(int num) {
         String languages = "Python Java HTML CSS JavaScript PHP SQL C C++ C# Ruby R Swift";
         ArrayList<String> lang = new ArrayList<>(Arrays.asList(languages.split(" ")));
@@ -250,6 +269,7 @@ public class WeaselCompany {
         for (int i = 0; i < num; i++) {
             int j = rand.nextInt(lang.size());
             languagesList.add(lang.get(j));
+            lang.remove(j);
         }
         return languagesList;
     }
@@ -287,6 +307,16 @@ public class WeaselCompany {
 
         return areasList.get(i);
     }
+
+    private static String generateRequestID() {
+        Random rand = new Random();
+        int id = 2346 + rand.nextInt(1000000);
+        return Integer.toString(id);
+    }
+
+
+
+
 
 
 }
