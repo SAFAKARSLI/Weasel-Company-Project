@@ -169,7 +169,7 @@ public class Manager extends Staff{
                     case "E":
                         printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
                 }
-                System.out.println("\nDo you accept this request?");
+                System.out.println("\nDo you accept this request? (yes/no)");
                 if(doYouAccept(manager)) {
                     System.out.println("You accepted the request.");
                 } else {
