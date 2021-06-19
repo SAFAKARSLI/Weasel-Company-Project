@@ -24,10 +24,9 @@ public class Main {
         Company.assignProjectsToManagers();
         Company.formCrews();
 
-        Manager.displayInformation(Company);
+        Company.generateRequests(4);
 
-
-
+        WeaselCompany.displayMainMenu(Company, TheManager);
 
 
 

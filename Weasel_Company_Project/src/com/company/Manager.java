@@ -183,9 +183,6 @@ public class Manager extends Staff{
 
     }
 
-    public static void displayMainMenu(WeaselCompany company, Manager manager) {
-        System.out.println("Main menu");
-    }
 
     public static void displayInformation(WeaselCompany company, Manager manager) {
         Scanner scanner = new Scanner(System.in);
