@@ -152,7 +152,7 @@ public class Manager extends Staff{
                             break;
                     }
                     if(quit()) {
-                        displayMainMenu(company, manager);
+                        company.displayMainMenu(company, manager);
                     } else {displayRequests(company, manager);}
                 }
                 else {
@@ -177,7 +177,7 @@ public class Manager extends Staff{
                 }
                 manager.requests.remove(consider-1);
                 if(quit()) {
-                    displayMainMenu(company, manager);
+                    company.displayMainMenu(company, manager);
                 } else { displayRequests(company,manager); }
             }
 
@@ -265,7 +265,7 @@ public class Manager extends Staff{
         }
         printMatched(company,matched);
         if(quit()) {
-            displayMainMenu(company, manager);
+            company.displayMainMenu(company, manager);
         } else { printMatched(company, matched);}
 
     }
@@ -406,7 +406,7 @@ public class Manager extends Staff{
                 printManagerInfo((Manager) matchedStaff.get(answer-1));
             }
             if(quit()) {
-                displayMainMenu(company, company.managers.get(0));
+                company.displayMainMenu(company, company.managers.get(0));
             } else {printMatched(company,matchedStaff);}
         }
     }
@@ -437,7 +437,7 @@ public class Manager extends Staff{
             makeRequest(company);
             System.out.println("You canceled your request.\n");
         }
-        displayMainMenu(company, company.managers.get(0));
+        company.displayMainMenu(company, company.managers.get(0));
 
     }
 

@@ -439,10 +439,10 @@ public class WeaselCompany {
             //  Manager.displayInbox(manager);
                 break;
             case 4:
-                Manager.displayInformation(Company);
+                Manager.displayInformation(Company, manager);
                 break;
             case 5:
-                Manager.displayRequests(manager);
+                Manager.displayRequests(Company, manager);
                 break;
             case 6:
                 Manager.makeRequest(Company);
