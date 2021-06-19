@@ -383,7 +383,7 @@ public class WeaselCompany {
         }
     }
 
-    public void displayCompanyInfo(){
+    public void displayCompanyInfo(WeaselCompany company, Manager manager){
 
         System.out.println("\n\nWEASEL COMPANY\n\n" +
                 "CEO: " + this.CEO.name + "\n\nManagers:" );
@@ -432,7 +432,7 @@ public class WeaselCompany {
 
         switch (choice) {
             case 1:
-                Company.displayCompanyInfo();
+                Company.displayCompanyInfo(Company,manager);
                 break;
             case 2:
                 Manager.displayToDo(Company, manager, checklist);

@@ -79,6 +79,9 @@ public class Manager extends Staff{
         for(int i=0; i<duties.size(); i++){
             System.out.println((i+1) + ": " + duties.get(i));
         }
+        if(quit()) {
+            WeaselCompany.displayMainMenu(Company, manager);
+        }
     }
 
     private static ArrayList<String> generateDuties(Manager manager, int num, WeaselCompany Company) {
