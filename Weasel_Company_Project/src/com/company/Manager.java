@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -56,7 +55,63 @@ public class Manager extends Staff{
         this.requests = new ArrayList<>();
     }
 
-    public static void displayToDo()
+    public static String[] displayLoginScreen(Scanner scanner) {
+        System.out.println("\nWeasel Company\n\nManager User Interface\n");
+        System.out.println("Name:");
+        String name = scanner.nextLine();
+        System.out.println("Password:");
+        String password = scanner.nextLine();
+        String[] nameAndPassword = new String[2];
+        nameAndPassword[0] = name;
+        nameAndPassword[1] = password;
+        return nameAndPassword;
+    }
+
+    public static void displayToDo() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -33,11 +33,11 @@ public class WeaselCompany {
     }
 
 
-    public static Manager createTheManager(String managerName, String password ,WeaselCompany Company) {
+    public Manager createTheManager(String managerName, String password) {
         ArrayList<String> projects = new ArrayList<>();
         Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075", password);
-        Company.managers.add(manager);
-        Company.staffs.add(manager);
+        this.managers.add(manager);
+        this.staffs.add(manager);
 
         return manager;
     }
@@ -51,7 +51,7 @@ public class WeaselCompany {
         return new WeaselCompany(Ceo, "5.17.2016", 100000);
     }
 
-    public static void createProjects(WeaselCompany Company) {
+    public void createProjects() {
         String names = "Juniper Rosemary Saffron Wisteria Wilder Violet Vinca Valerian Thorne Sherwood Sequoia Oleander " +
                 "Oakley Myrtle Meadow Linden Lily Lavender Charlie Heather Hazel Ginger Hyacinth Forsythia Camellia Calendula " +
                 "UglyFox Cerise MettlePaw Peacocks Sunergy Uzzin Ranzer Colusa WhiteJacks PrimeEight DejaVu Chasers CelestialInterface " +
@@ -59,38 +59,38 @@ public class WeaselCompany {
 
         ArrayList<String> nameList = new ArrayList<>(Arrays.asList(names.split(" ")));
         for (int i = 0; i < nameList.size(); i++) {
-            Company.projectHistory.add(nameList.get(i).toUpperCase());
+            this.projectHistory.add(nameList.get(i).toUpperCase());
             if (nameList.size() - i < 18) {
-                Company.currentProjects.add(nameList.get(i).toUpperCase());
+                this.currentProjects.add(nameList.get(i).toUpperCase());
             }
         }
     }
 
-    public static void generateManagers(WeaselCompany Company, int managerNum) {
+    public void generateManagers(int managerNum) {
         for (int i = 0; i < managerNum; i++) {
             ArrayList<String> projects = new ArrayList<>();
             Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), projects, generatePhoneNumber(), generatePassword());
-            Company.managers.add(manager);
-            Company.staffs.add(manager);
+            this.managers.add(manager);
+            this.staffs.add(manager);
         }
     }
 
-    public static void assignProjectsToManagers(WeaselCompany Company) {
-        for (int i=0; i < Company.projectHistory.size(); i++) {
-            Collections.addAll(Company.CEO.projects, Company.projectHistory.get(i));
+    public void assignProjectsToManagers() {
+        for (int i=0; i < this.projectHistory.size(); i++) {
+            Collections.addAll(this.CEO.projects, this.projectHistory.get(i));
         }
-        ArrayList<String> copyOfCurrentProjects = Company.currentProjects;
-        for (int i = 0; i < Company.managers.size(); i++) {
+        ArrayList<String> copyOfCurrentProjects = this.currentProjects;
+        for (int i = 0; i < this.managers.size(); i++) {
             for (int j = 0; j < 3; j++) {
-                Company.managers.get(i).projects.add(copyOfCurrentProjects.get(0));
+                this.managers.get(i).projects.add(copyOfCurrentProjects.get(0));
                 copyOfCurrentProjects.remove(0);
             }
         }
-        Company.setTotalStuffNum();
+        this.setTotalStuffNum();
     }
 
-    public static void generateDevelopers(WeaselCompany Company, int developerNum) {
+    public void generateDevelopers(int developerNum) {
 
         for (int i = 0; i < developerNum; i++) {
             Random rand = new Random();
@@ -99,20 +99,20 @@ public class WeaselCompany {
             int salary = generateSalary();
             Developer developer = new Developer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     salary, generateUniversityName(), Tools, generateMainTool(Tools), declareRemoteness(),
-                    declareTitle(salary), generateProjectName(Company), generatePhoneNumber(), generatePassword());
-            Company.developers.add(developer);
-            Company.staffs.add(developer);
+                    declareTitle(salary), this.generateProjectName(), generatePhoneNumber(), generatePassword());
+            this.developers.add(developer);
+            this.staffs.add(developer);
         }
 
     }
 
-    public static void generateEngineers(WeaselCompany Company, int engineerNum) {
+    public void generateEngineers(int engineerNum) {
 
         for (int i = 0; i < engineerNum; i++) {
             Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
-                    generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea(), generatePassword());
-            Company.engineers.add(engineer);
-            Company.staffs.add(engineer);
+                    generateSalary(), generateUniversityName(), this.generateProjectName(), generatePhoneNumber(), generateEngineerArea(), generatePassword());
+            this.engineers.add(engineer);
+            this.staffs.add(engineer);
         }
 
     }
@@ -234,10 +234,10 @@ public class WeaselCompany {
         return unis.get(i).toUpperCase();
     }
 
-    private static String generateProjectName(WeaselCompany Company) {
+    private String generateProjectName() {
         Random rand = new Random();
-        int i = rand.nextInt(Company.currentProjects.size());
-        return Company.currentProjects.get(i);
+        int i = rand.nextInt(this.currentProjects.size());
+        return this.currentProjects.get(i);
     }
 
     private static String generatePhoneNumber() {
@@ -260,12 +260,12 @@ public class WeaselCompany {
         return password;
     }
 
-    public static void formCrews(WeaselCompany Company) {
+    public void formCrews() {
 
-        for(int i=0; i<Company.managers.size(); i++) {
-            for (int j = 0; j < Company.staffs.size(); j++) {
-                Manager manager = Company.managers.get(i);
-                Staff staff = Company.staffs.get(j);
+        for(int i=0; i<this.managers.size(); i++) {
+            for (int j = 0; j < this.staffs.size(); j++) {
+                Manager manager = this.managers.get(i);
+                Staff staff = this.staffs.get(j);
                 if (manager.projects.contains(staff.projectName)) {
                     manager.crew.add(staff);
                 }
@@ -328,10 +328,10 @@ public class WeaselCompany {
         return Integer.toString(id);
     }
 
-    private static Staff pickStaff(WeaselCompany Company) {
+    private Staff pickStaff() {
         Random rand = new Random();
-        int i = rand.nextInt(Company.managers.get(0).crew.size());
-        return Company.managers.get(0).crew.get(i);
+        int i = rand.nextInt(this.managers.get(0).crew.size());
+        return this.managers.get(0).crew.get(i);
     }
 
     private static String generateRequestType() {
@@ -376,17 +376,15 @@ public class WeaselCompany {
         return "Extra Message";
     }
 
-    public static void generateRequests(WeaselCompany Company, int numOfRequests){
+    public void generateRequests(int numOfRequests){
         for (int i=0; i<numOfRequests; i++){
-            Manager TheManager = Company.managers.get(0);
+            Manager TheManager = this.managers.get(0);
             String requestType = generateRequestType();
-            Request request = new Request(generateRequestID(), pickStaff(Company), TheManager,
+            Request request = new Request(generateRequestID(), this.pickStaff(), TheManager,
                     requestType, generateRequestReason(requestType), generateExtraMessages());
             TheManager.requests.add(request);
         }
     }
-
-
 
 
 }
