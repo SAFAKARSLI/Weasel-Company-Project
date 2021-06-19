@@ -43,12 +43,15 @@ public class Manager extends Staff{
 
     public String password;
     public ArrayList<String> projects;
+    public ArrayList<Request> requests;
 
     public Manager(String name, int age, String ID, String entranceDate,
                    int salary, String universityName, ArrayList<String> projects,
-                   String phoneNumber) {
+                   String phoneNumber, String password) {
         super(name, age, ID, entranceDate, salary, universityName, "", phoneNumber,"M");
+        this.password = password;
         this.projects = projects;
+        this.requests = new ArrayList<>();
     }
 
     public static void quitRequest(WeaselCompany company) {

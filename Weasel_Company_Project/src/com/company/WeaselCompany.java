@@ -33,9 +33,9 @@ public class WeaselCompany {
     }
 
 
-    public static Manager createTheManager(String managerName, WeaselCompany Company) {
+    public static Manager createTheManager(String managerName, String password ,WeaselCompany Company) {
         ArrayList<String> projects = new ArrayList<>();
-        Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075");
+        Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075", password);
         Company.managers.add(manager);
         Company.staffs.add(manager);
         return manager;
@@ -43,7 +43,7 @@ public class WeaselCompany {
 
     public static Manager createCEO() {
         ArrayList<String> projects = new ArrayList<>();
-        return new Manager("Kevin Johns".toUpperCase(), 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900");
+        return new Manager("Kevin Johns".toUpperCase(), 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900", "Ceo's Password");
     }
 
     public static WeaselCompany createCompany(Manager Ceo) {
@@ -69,7 +69,7 @@ public class WeaselCompany {
         for (int i = 0; i < managerNum; i++) {
             ArrayList<String> projects = new ArrayList<>();
             Manager manager = new Manager(generateName(), generateAge(), generateID(), generateEntranceDate(),
-                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber());
+                    generateSalary(), generateUniversityName(), projects, generatePhoneNumber(), generatePassword());
             Company.managers.add(manager);
             Company.staffs.add(manager);
         }
@@ -247,6 +247,18 @@ public class WeaselCompany {
         return "+1 " + first + " " + second + " " + third;
     }
 
+    private static String generatePassword() {
+        String password = "";
+        Random rand = new Random();
+        for (int i=0; i<4; i++) {
+            int numbers = rand.nextInt(100);
+            String[] alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+            int letterIndex = rand.nextInt(alphabet.length);
+            password = password + numbers + alphabet[letterIndex];
+        }
+        return password;
+    }
+
     private static ArrayList<String> generateTools(int num) {
         String languages = "Python Java HTML CSS JavaScript PHP SQL C C++ C# Ruby R Swift";
         ArrayList<String> lang = new ArrayList<>(Arrays.asList(languages.split(" ")));
@@ -295,6 +307,16 @@ public class WeaselCompany {
 
         return areasList.get(i);
     }
+
+    private static String generateRequestID() {
+        Random rand = new Random();
+        int id = 2346 + rand.nextInt(1000000);
+        return Integer.toString(id);
+    }
+
+
+
+
 
 
 }
