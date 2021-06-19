@@ -56,19 +56,13 @@ public class Manager extends Staff{
         this.requests = new ArrayList<>();
     }
 
-    public static void quitRequest(WeaselCompany company) {
-        Scanner scanner = new Scanner(System.in);
-        //Listed reasons
-        ArrayList<String> quitReasons = new ArrayList<String>(Arrays.asList("Lack of Salary","Family Issue","Issue With Some Staffs",
-                "Looking For A New Challenge","Health Reason"));
-        //Printing reasons properly
-        for(int i = 0; i<quitReasons.size(); i++) {
-            System.out.println((i+1) + "- "+quitReasons.get(i));
-        }
-        System.out.println("Why do you want to quit?");
-        int reasonNum = scanner.nextInt();
-//        writePetition(manager,0);
-    }
+    public static void displayToDo()
+
+
+
+
+
+
 
 
 }
