@@ -30,14 +30,14 @@ public class WeaselCompany {
 
     public static Manager createTheManager(String managerName, WeaselCompany Company) {
         ArrayList<String> projects = new ArrayList<>();
-        Manager manager = new Manager(managerName, 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075");
+        Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075");
         Company.managers.add(manager);
         return manager;
     }
 
     public static Manager createCEO() {
         ArrayList<String> projects = new ArrayList<>();
-        return new Manager("Kevin Johns", 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900");
+        return new Manager("Kevin Johns".toUpperCase(), 48, "0", "5.17.2016", 22500, "Columbia University", projects, "+1 235 355 3900");
     }
 
     public static WeaselCompany createCompany(Manager Ceo) {
