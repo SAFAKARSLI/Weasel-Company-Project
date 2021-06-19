@@ -322,7 +322,7 @@ public class WeaselCompany {
         return areasList.get(i);
     }
 
-    private static String generateRequestID() {
+    public static String generateRequestID() {
         Random rand = new Random();
         int id = 2346 + rand.nextInt(1000000);
         return Integer.toString(id);
@@ -349,20 +349,20 @@ public class WeaselCompany {
         switch (requestType) {
 
             case "quit":
-                requestReasons.add("insufficient salary");
-                requestReasons.add("personal issues");
-                requestReasons.add("health issues");
-                requestReasons.add("incompatibility with staff");
+                requestReasons.add("Insufficient salary");
+                requestReasons.add("Personal issues");
+                requestReasons.add("Health issues");
+                requestReasons.add("Incompatibility with staff");
                 break;
             case "raise":
             case "promotion":
-                requestReasons.add("financial needs");
-                requestReasons.add("reflection of efficiency");
+                requestReasons.add("Financial needs");
+                requestReasons.add("Reflection of efficiency");
                 break;
             case "permission":
-                requestReasons.add("personal issues");
-                requestReasons.add("health issues");
-                requestReasons.add("vacation");
+                requestReasons.add("Personal issues");
+                requestReasons.add("Health issues");
+                requestReasons.add("Vacation");
                 break;
 
         }
@@ -372,7 +372,7 @@ public class WeaselCompany {
         return requestReasons.get(i);
     }
 
-    private static String generateExtraMessages() {
+    private static String generatePetition() {
         return "Extra Message";
     }
 
@@ -381,7 +381,7 @@ public class WeaselCompany {
             Manager TheManager = Company.managers.get(0);
             String requestType = generateRequestType();
             Request request = new Request(generateRequestID(), pickStaff(Company), TheManager,
-                    requestType, generateRequestReason(requestType), generateExtraMessages());
+                    requestType, generateRequestReason(requestType), generatePetition());
             TheManager.requests.add(request);
         }
     }

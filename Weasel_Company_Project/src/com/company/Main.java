@@ -8,18 +8,19 @@ public class Main {
 
         Manager CEO = WeaselCompany.createCEO();
 
-        WeaselCompany Company = WeaselCompany.createCompany(CEO);
+        WeaselCompany company = WeaselCompany.createCompany(CEO);
 
-        Manager TheManager = WeaselCompany.createTheManager("Sam Jason","password", Company);
+        Manager theManager = WeaselCompany.createTheManager("Sam Jason","password", company);
 
-        WeaselCompany.createProjects(Company);
+        WeaselCompany.createProjects(company);
 
-        WeaselCompany.generateManagers(Company, 3);
-        WeaselCompany.generateDevelopers(Company, 400);
-        WeaselCompany.generateEngineers(Company, 200);
+        WeaselCompany.generateManagers(company, 3);
+        WeaselCompany.generateDevelopers(company, 400);
+        WeaselCompany.generateEngineers(company, 200);
 
-        WeaselCompany.assignProjectsToManagers(Company);
-        WeaselCompany.formCrews(Company);
+        WeaselCompany.assignProjectsToManagers(company);
+        WeaselCompany.formCrews(company);
+
 
 
 

@@ -53,6 +53,12 @@ public class Manager extends Staff{
         this.requests = new ArrayList<>();
     }
 
+    public static void displayRequests(Manager manager) {
+        for (int i = 0; i <manager.requests.size(); i++) {
+            System.out.println((i+1) +"- "+ manager.requests.get(i).from.name);
+        }
+    }
+
     public static void displayInformation(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n1- Search by name\n" +
@@ -261,5 +267,144 @@ public class Manager extends Staff{
         }
     }
 
+    public static void makeRequest(WeaselCompany company) {
+        String ID = WeaselCompany.generateRequestID();
+        String type = specifyRequestType();
+        String reason = specifyRequestReason(type);
+        String petition = writePetition(company.managers.get(0));
+        System.out.println("\nRequest:\n" +
+                "---------------" +
+                "\nID:     "+ID+
+                "\nFrom:   "+company.managers.get(0).name+
+                "\nTo:     "+company.CEO.name+
+                "\nType:   "+type.toUpperCase()+
+                "\nReason: "+reason.toUpperCase()+
+                "\n\nYour Petition:\n'''"+petition+"\n\n'''");
+        if(requestAccept(company.managers.get(0))) {
+            company.CEO.requests.add( new Request(ID, company.managers.get(0), company.CEO, type,reason,petition));
+        } else {
+            makeRequest(company);
+        }
 
-}
+    }
+
+    public static boolean requestAccept(Manager manager) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Are you sure? (y/n)");
+        switch (scanner.nextLine()) {
+            case "y":
+                System.out.println("Your request has been send.");
+                return true;
+            case "n":
+                System.out.println("You canceled your request.");
+                return false;
+            default:
+                System.out.println("Please only enter 'y' or 'n'!\n");
+                return requestAccept(manager);
+        }
+    }
+
+    public static String writePetition(Manager manager) {
+        Scanner scanner = new Scanner(System.in);
+        String currentLine;
+        ArrayList<String> lines = new ArrayList<String>();
+        System.out.println("Write your petition here:\n");
+        do {
+            currentLine = scanner.nextLine();
+            lines.add(currentLine);
+        }
+        while(!currentLine.trim().equals(manager.name));
+
+        String petition = "";
+        for(String line : lines) {
+            petition = petition.concat("\n"+line);
+        }
+        return petition;
+    }
+
+    public static String specifyRequestReason(String type) {
+        Scanner scanner = new Scanner(System.in);
+        switch (type) {
+            case "quit":
+                System.out.println("1- Insufficient salary\n" +
+                        "2- Personal issues\n" +
+                        "3- Health issues\n" +
+                        "4- Incompatibility with staff\n" +
+                        "Please specify your quit request: ");
+                switch (scanner.next()) {
+                    case "1":
+                        return "Insufficient salary";
+                    case "2":
+                        return "Personal issues";
+                    case "3":
+                        return "Health issues";
+                    case "4":
+                        return "Incompatibility with staff";
+                    default:
+                        System.out.println("Please provide valid number!\n");
+                        return specifyRequestReason(type);
+                }
+
+            case "raise":
+            case "promotion":
+                System.out.println("1- Financial needs\n" +
+                        "2- Reflection of efficiency\n" +
+                        "Please specify your request: ");
+                switch (scanner.next()) {
+                    case "1":
+                        return "Financial needs";
+                    case "2":
+                        return "Reflection of efficiency";
+                    default:
+                        System.out.println("Please provide valid number!\n");
+                        return specifyRequestReason(type);
+                }
+
+            case "permission":
+                System.out.println("1- Personal issues\n" +
+                        "2- Health issues\n" +
+                        "3- Vacation\n" +
+                        "Please specify your permission request:");
+                switch (scanner.next()) {
+                    case "1":
+                        return "Personal issues";
+                    case "2":
+                        return "Health issues";
+                    case "3":
+                        return "Vacation";
+                    default:
+                        System.out.println("Please provide valid number!\n");
+                        return specifyRequestReason(type);
+                }
+            default:
+                System.out.println("Please provide valid number!\n");
+                return specifyRequestType();
+        }
+
+    }
+
+
+    public static String specifyRequestType() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1- Quit request\n" +
+                "2- Raise request\n" +
+                "3- Promotion request\n" +
+                "4- Permission request\n" +
+                "Which type of request do you want to make?");
+        switch (scanner.next()) {
+            case "1":
+                return "quit";
+            case "2":
+                return "raise";
+            case "3":
+                return "promotion";
+            case "4":
+                return "permission";
+            default:
+                System.out.println("Please give valid number!\n");
+                return specifyRequestType();
+        }
+
+
+        }
+    }
