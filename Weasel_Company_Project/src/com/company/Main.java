@@ -24,7 +24,11 @@ public class Main {
         Company.assignProjectsToManagers();
         Company.formCrews();
 
-        Manager.displayToDo(Company, TheManager, 7);
+//        Manager.displayToDo(Company, TheManager, 7);
+
+        Company.generateRequests(10);
+
+        Manager.displayRequests(TheManager);
 
 
 

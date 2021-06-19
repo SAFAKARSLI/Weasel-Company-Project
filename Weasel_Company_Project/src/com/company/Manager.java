@@ -117,9 +117,45 @@ public class Manager extends Staff{
 
 
     public static void displayRequests(Manager manager) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Request ID:       From:\n-------------     -------------");
         for (int i = 0; i <manager.requests.size(); i++) {
-            System.out.println((i+1) +"- "+ manager.requests.get(i).from.name);
+            System.out.println((i+1) +"- "+manager.requests.get(i).ID+"         "+ manager.requests.get(i).from.name
+                    + " ("+manager.requests.get(i).from.ID+")");
         }
+            System.out.println("Which request do you want to consider?");
+            int consider = scanner.nextInt();
+            //If input is invalid
+            if(consider > manager.requests.size()) {
+                System.out.println("Request list does not include '"+consider+"'\nDid you mean last element of the list? (y/n)");
+                //If user wants to see the last element of the list
+                if(doYouAccept(manager)) {
+                    printRequest(manager.requests.get(consider-1));
+                    System.out.println("Requester Information:\n");
+                    switch (manager.requests.get(consider-1).from.job) {
+                        case "D":
+                            printDeveloperInfo((Developer) manager.requests.get(consider-1).from);
+                            break;
+                        case "E":
+                            printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
+                    }
+                }
+                else {
+                    displayRequests(manager);
+                }
+            }
+            else {
+                printRequest(manager.requests.get(consider-1));
+                System.out.println("Requester Information:\n---------------");
+                switch (manager.requests.get(consider-1).from.job) {
+                    case "D":
+                        printDeveloperInfo((Developer) manager.requests.get(consider-1).from);
+                        break;
+                    case "E":
+                        printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
+                }
+            }
+
     }
 
     public static void displayInformation(WeaselCompany company) {
@@ -234,6 +270,19 @@ public class Manager extends Staff{
         return matched.size() == 0 ? null : matched;
     }
 
+    public static void printStaff(ArrayList<Staff> staff, int index) {
+        switch (staff.get(index).job) {
+            case "D":
+                printDeveloperInfo((Developer) staff.get(index));
+                break;
+            case "M":
+                printManagerInfo((Manager) staff.get(index));
+                break;
+            case "E":
+                printEngineerInfo((Engineer) staff.get(index));
+                break;
+        }
+    }
 
     public static void printManagerInfo(Manager manager) {
         System.out.println("\nName = "+manager.name+
@@ -253,8 +302,8 @@ public class Manager extends Staff{
 
     }
 
-    public static void printDevInfo(Developer developer) {
-        System.out.println("\nName = "+developer.name+
+    public static void printDeveloperInfo(Developer developer) {
+        System.out.println("Name = "+developer.name+
                 "\nID = "+ developer.ID+
                 "\nAge = "+ developer.age+
                 "\nTitle = "+ developer.title+
@@ -282,7 +331,7 @@ public class Manager extends Staff{
     }
 
     public static void printEngineerInfo(Engineer engineer) {
-        System.out.println("\nName = "+engineer.name+
+        System.out.println("Name = "+engineer.name+
                 "\nAge = "+ engineer.age+
                 "\nID = "+ engineer.ID+
                 "\nPassword = "+engineer.password+
@@ -315,11 +364,11 @@ public class Manager extends Staff{
             System.out.println("Which staff's information do you want to see = ");
             int answer = scanner.nextInt();
             if(answer > matchedStaff.size()) {
-                System.out.println("Out of bounds!!!\n");
+                System.out.println("Out of bounds!\n");
                 printMatched(company, matchedStaff);
             }
             if(matchedStaff.get(answer - 1).job.equals("D")) {
-                printDevInfo((Developer) matchedStaff.get(answer - 1));
+                printDeveloperInfo((Developer) matchedStaff.get(answer - 1));
             }
             else if(matchedStaff.get(answer-1).job.equals("E")) {
                 printEngineerInfo((Engineer) matchedStaff.get(answer-1));
@@ -330,40 +379,46 @@ public class Manager extends Staff{
         }
     }
 
+    public static void printRequest(Request request) {
+        System.out.println("\nRequest:\n" +
+                "---------------" +
+                "\nID:     "+request.ID+
+                "\nFrom:   "+request.from.name+
+                "\nTo:     "+request.to.name+
+                "\nType:   "+request.type.toUpperCase()+
+                "\nReason: "+request.reason.toUpperCase()+
+                "\n\nYour Petition:\n'''"+request.petition+"\n\n'''");
+    }
+
     public static void makeRequest(WeaselCompany company) {
         String ID = WeaselCompany.generateRequestID();
         String type = specifyRequestType();
         String reason = specifyRequestReason(type);
         String petition = writePetition(company.managers.get(0));
-        System.out.println("\nRequest:\n" +
-                "---------------" +
-                "\nID:     "+ID+
-                "\nFrom:   "+company.managers.get(0).name+
-                "\nTo:     "+company.CEO.name+
-                "\nType:   "+type.toUpperCase()+
-                "\nReason: "+reason.toUpperCase()+
-                "\n\nYour Petition:\n'''"+petition+"\n\n'''");
-        if(requestAccept(company.managers.get(0))) {
-            company.CEO.requests.add( new Request(ID, company.managers.get(0), company.CEO, type,reason,petition));
+        Request request =  new Request(ID, company.managers.get(0), company.CEO, type,reason,petition);
+        printRequest(request);
+        System.out.println("Are you sure Mr."+company.managers.get(0).name+"? (y/n)");
+        if(doYouAccept(company.managers.get(0))) {
+            company.CEO.requests.add(request);
+            System.out.println("Your request has been send.");
         } else {
             makeRequest(company);
+            System.out.println("You canceled your request.");
         }
 
     }
 
-    public static boolean requestAccept(Manager manager) {
+    public static boolean doYouAccept(Manager manager) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Are you sure? (y/n)");
+
         switch (scanner.nextLine()) {
             case "y":
-                System.out.println("Your request has been send.");
                 return true;
             case "n":
-                System.out.println("You canceled your request.");
                 return false;
             default:
                 System.out.println("Please only enter 'y' or 'n'!\n");
-                return requestAccept(manager);
+                return doYouAccept(manager);
         }
     }
 

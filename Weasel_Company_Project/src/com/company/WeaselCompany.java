@@ -373,7 +373,7 @@ public class WeaselCompany {
     }
 
     private static String generateExtraMessages() {
-        return "Extra Message";
+        return "\nExtra Message";
     }
 
     public void generateRequests(int numOfRequests){
