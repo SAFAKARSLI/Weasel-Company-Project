@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 public class WeaselCompany {
 
@@ -397,11 +394,11 @@ public class WeaselCompany {
         System.out.println("Budget: " + this.budget + "\n");
         System.out.println("Ongoing Projects:");
         for (int i=0; i<this.currentProjects.size(); i++) {
-            System.out.println("Project " + this.currentProjects.get(i));
+            System.out.println((i+1) + ": Project " + this.currentProjects.get(i));
         }
         System.out.println("\nProject History:");
         for (int i=0; i<this.projectHistory.size(); i++) {
-            System.out.println("Project " + this.projectHistory.get(i));
+            System.out.println((i+1) + ": Project " + this.projectHistory.get(i));
         }
         System.out.println("\nNumber of Stuffs: " + this.staffs.size());
         System.out.println("\nNumber of Developers: " + this.developers.size());
@@ -409,6 +406,50 @@ public class WeaselCompany {
 
     }
 
+    public static void displayMainMenu(WeaselCompany Company, Manager manager){
+        int checklist = 5;
+
+        System.out.println("Main Menu\n" +
+                "1: Display Company Info\n" +
+                "2: Display My Schedule\n" +
+                "3: Open Up My Inbox\n" +
+                "4: Search Company Staffs\n" +
+                "5: Display Requests from My Crew\n" +
+                "6: Make a Request to the CEO\n");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+        System.out.println("Type your choice:");
+        while(choice < 1 || choice > 6) {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice < 1 || choice > 6){
+                System.out.println("Type one of the numbers above:");
+            }
+        }
+
+        switch (choice) {
+            case 1:
+                Company.displayCompanyInfo();
+                break;
+            case 2:
+                Manager.displayToDo(Company, manager, checklist);
+                break;
+            case 3:
+            //  Manager.displayInbox(manager);
+                break;
+            case 4:
+                Manager.displayInformation(Company);
+                break;
+            case 5:
+                Manager.displayRequests(manager);
+                break;
+            case 6:
+                Manager.makeRequest(Company);
+                break;
+        }
+
+    }
 
 }
 

@@ -102,7 +102,7 @@ public class Manager extends Staff{
         Random rand = new Random();
         for(int i=0; i<crewCopy.size()/2; i++ ) {
             int j = rand.nextInt(crewCopy.size());
-            int h = rand.nextInt(10);
+            int h = 1 + rand.nextInt(10);
             String projectName = crewCopy.get(j).projectName.substring(0,1) + crewCopy.get(j).projectName.substring(1).toLowerCase();
             duties.add("Arrange a meeting with " + crewCopy.get(j).name + " about the Mission-" + h +
                     " of Project " + projectName );
@@ -152,7 +152,7 @@ public class Manager extends Staff{
                             break;
                     }
                     if(quit()) {
-                        displayMainMenu();
+            //            WeaselCompany.displayMainMenu();
                     } else {displayRequests(manager);}
                 }
                 else {
@@ -170,15 +170,12 @@ public class Manager extends Staff{
                         printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
                 }
                 if(quit()) {
-                    displayMainMenu();
+             //       WeaselCompany.displayMainMenu();
                 } else {displayRequests(manager);}
             }
 
     }
 
-    public static void displayMainMenu() {
-        System.out.println("Main menu");
-    }
 
     public static void displayInformation(WeaselCompany company) {
         Scanner scanner = new Scanner(System.in);
@@ -399,7 +396,7 @@ public class Manager extends Staff{
                 printManagerInfo((Manager) matchedStaff.get(answer-1));
             }
             if(quit()) {
-                displayMainMenu();
+          //      WeaselCompany.displayMainMenu();
             } else {printMatched(company,matchedStaff);}
         }
     }
