@@ -52,9 +52,9 @@ public class WeaselCompany {
     }
 
     public void createProjects() {
-        String names = "Juniper Rosemary Saffron Wisteria Wilder Violet Vinca Valerian Thorne Sherwood Sequoia Oleander " +
+        String names = "Wisteria Wilder Violet Vinca Valerian Thorne Sherwood Sequoia Oleander " +
                 "Oakley Myrtle Meadow Linden Lily Lavender Charlie Heather Hazel Ginger Hyacinth Forsythia Camellia Calendula " +
-                "UglyFox Cerise MettlePaw Peacocks Sunergy Uzzin Ranzer Colusa WhiteJacks PrimeEight DejaVu Chasers CelestialInterface " +
+                "UglyFox Cerise MettlePaw Peacocks Sunergy Uzzin Juniper Rosemary Saffron Ranzer Colusa WhiteJacks PrimeEight DejaVu Chasers CelestialInterface " +
                 "YoungMarker WhiteCoast MovingBird Jaguar Whistler RuddyRex ShinyWaves";
 
         ArrayList<String> nameList = new ArrayList<>(Arrays.asList(names.split(" ")));
