@@ -314,19 +314,19 @@ public class WeaselCompany {
         return Integer.toString(id);
     }
 
-    private static Staff pickStaff(WeaselCompany Company) {
-        ArrayList<String> projects = Company.managers.get(0).projects;
-    }
+//    private static Staff pickStaff(WeaselCompany Company) {
+//        ArrayList<String> projects = Company.managers.get(0).projects;
+//    }
 
-    public static void generateRequests(WeaselCompany Company, int numOfRequests){
-        for (int i=0; i<numOfRequests; i++){
-            Manager TheManager = Company.managers.get(0);
-            Request request = new Request(generateRequestID(), pickStaff(Company), TheManager,
-                    generateRequestType(), generateRequestReason(requestType), generateExtraMessages());
-            TheManager.requests.add(request);
-        }
-
-    }
+//    public static void generateRequests(WeaselCompany Company, int numOfRequests){
+//        for (int i=0; i<numOfRequests; i++){
+//            Manager TheManager = Company.managers.get(0);
+//            Request request = new Request(generateRequestID(), pickStaff(Company), TheManager,
+//                    generateRequestType(), generateRequestReason(requestType), generateExtraMessages());
+//            TheManager.requests.add(request);
+//        }
+//
+//    }
 
 
 
