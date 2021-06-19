@@ -18,17 +18,13 @@ public class Main {
         Company.createProjects();
 
         Company.generateManagers(3);
-        Company.generateDevelopers(400);
-        Company.generateEngineers(200);
+        Company.generateDevelopers(400000);
+        Company.generateEngineers(200000);
 
         Company.assignProjectsToManagers();
         Company.formCrews();
 
-//        Manager.displayToDo(Company, TheManager, 7);
 
-        Company.generateRequests(10);
-
-        Manager.displayRequests(TheManager);
 
 
 
