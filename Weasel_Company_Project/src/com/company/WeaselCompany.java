@@ -260,14 +260,17 @@ public class WeaselCompany {
         return password;
     }
 
-    public static void formCrew(WeaselCompany Company, Manager manager) {
+    public static void formCrews(WeaselCompany Company) {
 
-        for (int i=0; i<Company.staffs.size(); i++){
-            if(manager.projects.contains(Company.staffs.get(i).projectName)) {
-                manager.crew.add(Company.staffs.get(i));
+        for(int i=0; i<Company.managers.size(); i++) {
+            for (int j = 0; j < Company.staffs.size(); j++) {
+                Manager manager = Company.managers.get(i);
+                Staff staff = Company.staffs.get(j);
+                if (manager.projects.contains(staff.projectName)) {
+                    manager.crew.add(staff);
+                }
             }
         }
-        manager.crew.add(Company.staffs.get(6));
     }
 
     private static ArrayList<String> generateTools(int num) {

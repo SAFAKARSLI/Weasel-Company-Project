@@ -19,7 +19,9 @@ public class Main {
         WeaselCompany.generateEngineers(Company, 200);
 
         WeaselCompany.assignProjectsToManagers(Company);
-        WeaselCompany.formCrew(Company, TheManager);
+        WeaselCompany.formCrews(Company);
+
+
 
 
 
