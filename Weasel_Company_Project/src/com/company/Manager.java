@@ -115,19 +115,19 @@ public class Manager extends Staff{
 
     public static boolean quit() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nTo go to previous screen enter 'previous', to back to the main menu enter 'quit':");
+        System.out.println("\nTo go to previous screen enter 'back', to back to the main menu enter 'quit':");
         switch (scanner.next()) {
-            case "previous":
+            case "back":
                 return false;
             case "quit":
                 return true;
             default:
-                System.out.println("You can only type 'previous' or 'quit'!\n");
+                System.out.println("You can only type 'back' or 'quit'!\n");
                 return quit();
         }
     }
 
-    public static void displayRequests(Manager manager) {
+    public static void displayRequests(WeaselCompany company,Manager manager) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Request ID:       From:\n-------------     -------------");
         for (int i = 0; i <manager.requests.size(); i++) {
@@ -152,11 +152,11 @@ public class Manager extends Staff{
                             break;
                     }
                     if(quit()) {
-                        displayMainMenu();
-                    } else {displayRequests(manager);}
+                        displayMainMenu(company, manager);
+                    } else {displayRequests(company, manager);}
                 }
                 else {
-                    displayRequests(manager);
+                    displayRequests(company, manager);
                 }
             }
             else {
@@ -169,18 +169,25 @@ public class Manager extends Staff{
                     case "E":
                         printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
                 }
+                System.out.println("\nDo you accept this request?");
+                if(doYouAccept(manager)) {
+                    System.out.println("You accepted the request.");
+                } else {
+                    System.out.println("You refused the request.");
+                }
+                manager.requests.remove(consider-1);
                 if(quit()) {
-                    displayMainMenu();
-                } else {displayRequests(manager);}
+                    displayMainMenu(company, manager);
+                } else { displayRequests(company,manager); }
             }
 
     }
 
-    public static void displayMainMenu() {
+    public static void displayMainMenu(WeaselCompany company, Manager manager) {
         System.out.println("Main menu");
     }
 
-    public static void displayInformation(WeaselCompany company) {
+    public static void displayInformation(WeaselCompany company, Manager manager) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n1- Search by name\n" +
                 "2- Search by ID\n" +
@@ -214,16 +221,16 @@ public class Manager extends Staff{
 
             case "3":
             case "4":
-                searchByDefiningRange(company);
+                searchByDefiningRange(company, manager);
                 break;
             default:
                 System.out.println("Please enter a valid number!!!");
-                displayInformation(company);
+                displayInformation(company, manager);
                 break;
         }
     }
 
-    public static void searchByDefiningRange(WeaselCompany company) {
+    public static void searchByDefiningRange(WeaselCompany company, Manager manager) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Staff> matched = new ArrayList<Staff>();
 
@@ -235,7 +242,7 @@ public class Manager extends Staff{
 
         if(upperLimit < lowerLimit) {
             System.out.println("Upper limit must bigger than lower limit!!");
-            searchByDefiningRange(company);
+            searchByDefiningRange(company, manager);
         }
         //If the user is asking for age
         if(lowerLimit <= 50) {
@@ -260,6 +267,9 @@ public class Manager extends Staff{
             matched = null;
         }
         printMatched(company,matched);
+        if(quit()) {
+            displayMainMenu(company, manager);
+        } else { printMatched(company, matched);}
 
     }
 
@@ -372,7 +382,7 @@ public class Manager extends Staff{
         //Checks if no result
         if(matchedStaff == null) {
             System.out.println("No matching result...");
-            displayInformation(company);
+            displayInformation(company, company.managers.get(0));
         }
         else {
             //Prints matched staffs
@@ -399,7 +409,7 @@ public class Manager extends Staff{
                 printManagerInfo((Manager) matchedStaff.get(answer-1));
             }
             if(quit()) {
-                displayMainMenu();
+                displayMainMenu(company, company.managers.get(0));
             } else {printMatched(company,matchedStaff);}
         }
     }
@@ -422,14 +432,15 @@ public class Manager extends Staff{
         String petition = writePetition(company.managers.get(0));
         Request request =  new Request(ID, company.managers.get(0), company.CEO, type,reason,petition);
         printRequest(request);
-        System.out.println("Are you sure Mr."+company.managers.get(0).name+"? (y/n)");
+        System.out.println("Are you sure? (yes/no)");
         if(doYouAccept(company.managers.get(0))) {
             company.CEO.requests.add(request);
-            System.out.println("Your request has been send.");
+            System.out.println("Your request has been send.\n");
         } else {
             makeRequest(company);
-            System.out.println("You canceled your request.");
+            System.out.println("You canceled your request.\n");
         }
+        displayMainMenu(company, company.managers.get(0));
 
     }
 
@@ -437,12 +448,12 @@ public class Manager extends Staff{
         Scanner scanner = new Scanner(System.in);
 
         switch (scanner.nextLine()) {
-            case "y":
+            case "yes":
                 return true;
-            case "n":
+            case "no":
                 return false;
             default:
-                System.out.println("Please only enter 'y' or 'n'!\n");
+                System.out.println("Please only enter 'yes' or 'no'!\n");
                 return doYouAccept(manager);
         }
     }
