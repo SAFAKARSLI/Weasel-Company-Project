@@ -288,9 +288,9 @@ public class Staff {
         System.out.println(tools);
 
         if(developer.isRemote) {
-            System.out.println("This developer is working remotely");
+            System.out.println("This developer is working remotely...");
         } else {
-            System.out.println("This developer is not working remotely");
+            System.out.println("This developer is not working remotely...");
         }
     }
 
