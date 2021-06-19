@@ -172,7 +172,7 @@ public class WeaselCompany {
 
     private static String generateID() {
         Random rand = new Random();
-        int id = 9783526 + rand.nextInt(1000000);
+        int id = 100000 + rand.nextInt(800000);
         return Integer.toString(id);
     }
 
@@ -324,7 +324,7 @@ public class WeaselCompany {
 
     public static String generateRequestID() {
         Random rand = new Random();
-        int id = 2346 + rand.nextInt(1000000);
+        int id = 10000000 + rand.nextInt(80000000);
         return Integer.toString(id);
     }
 
@@ -384,6 +384,29 @@ public class WeaselCompany {
                     requestType, generateRequestReason(requestType), generateExtraMessages());
             TheManager.requests.add(request);
         }
+    }
+
+    public void displayCompanyInfo(){
+
+        System.out.println("\n\nWEASEL COMPANY\n\n" +
+                "CEO: " + this.CEO.name + "\n\nManagers:" );
+        for(int i=0; i<this.managers.size(); i++) {
+            System.out.println(this.managers.get(i).name);
+        }
+        System.out.println("\nDate of Foundation: May 17, 2016\n");
+        System.out.println("Budget: " + this.budget + "\n");
+        System.out.println("Ongoing Projects:");
+        for (int i=0; i<this.currentProjects.size(); i++) {
+            System.out.println("Project " + this.currentProjects.get(i));
+        }
+        System.out.println("\nProject History:");
+        for (int i=0; i<this.projectHistory.size(); i++) {
+            System.out.println("Project " + this.projectHistory.get(i));
+        }
+        System.out.println("\nNumber of Stuffs: " + this.staffs.size());
+        System.out.println("\nNumber of Developers: " + this.developers.size());
+        System.out.println("\nNumber of Engineers: " + this.engineers.size());
+
     }
 
 
