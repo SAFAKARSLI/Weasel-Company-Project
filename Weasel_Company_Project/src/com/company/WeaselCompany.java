@@ -98,7 +98,7 @@ public class WeaselCompany {
             int salary = generateSalary();
             Developer developer = new Developer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     salary, generateUniversityName(), Tools, generateMainTool(Tools), declareRemoteness(),
-                    declareTitle(salary), generateProjectName(Company), generatePhoneNumber());
+                    declareTitle(salary), generateProjectName(Company), generatePhoneNumber(), generatePassword());
             Company.developers.add(developer);
             Company.staffs.add(developer);
         }
@@ -109,7 +109,7 @@ public class WeaselCompany {
 
         for (int i = 0; i < engineerNum; i++) {
             Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
-                    generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea());
+                    generateSalary(), generateUniversityName(), generateProjectName(Company), generatePhoneNumber(), generateEngineerArea(), generatePassword());
             Company.engineers.add(engineer);
             Company.staffs.add(engineer);
         }
