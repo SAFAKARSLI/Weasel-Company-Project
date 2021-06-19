@@ -403,7 +403,9 @@ public class WeaselCompany {
         System.out.println("\nNumber of Stuffs: " + this.staffs.size());
         System.out.println("\nNumber of Developers: " + this.developers.size());
         System.out.println("\nNumber of Engineers: " + this.engineers.size());
-
+        if(Manager.quit()) {
+            WeaselCompany.displayMainMenu(company, manager);
+        }
     }
 
     public static void displayMainMenu(WeaselCompany Company, Manager manager){
