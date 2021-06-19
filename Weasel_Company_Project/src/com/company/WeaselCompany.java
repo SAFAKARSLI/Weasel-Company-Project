@@ -1,11 +1,14 @@
 package com.company;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 public class WeaselCompany {
 
     public Manager CEO;
-    public int employeeNum;
+    public int totalStuffNum;
     public String birthDate;
     public ArrayList<String> projectHistory;
     public ArrayList<String> currentProjects;
@@ -16,9 +19,9 @@ public class WeaselCompany {
     public ArrayList<Staff> staffs;
 
 
-    public WeaselCompany(Manager CEO, int employeeNum, String birthDate, int budget) {
+    public WeaselCompany(Manager CEO, String birthDate, int budget) {
         this.CEO = CEO;
-        this.employeeNum = employeeNum;
+        this.totalStuffNum = 0;
         this.birthDate = birthDate;
         this.projectHistory = new ArrayList<>();
         this.currentProjects = new ArrayList<>();
@@ -44,7 +47,7 @@ public class WeaselCompany {
     }
 
     public static WeaselCompany createCompany(Manager Ceo) {
-        return new WeaselCompany(Ceo, 0, "5.17.2016", 100000);
+        return new WeaselCompany(Ceo, "5.17.2016", 100000);
     }
 
     public static void createProjects(WeaselCompany Company) {
@@ -83,6 +86,7 @@ public class WeaselCompany {
                 copyOfCurrentProjects.remove(0);
             }
         }
+        Company.setTotalStuffNum();
     }
 
     public static void generateDevelopers(WeaselCompany Company, int developerNum) {
@@ -112,6 +116,9 @@ public class WeaselCompany {
 
     }
 
+    public void setTotalStuffNum() {
+        this.totalStuffNum = 1 + this.managers.size() + this.developers.size() + this.engineers.size();
+    }
 
     private static String generateName() {
 
@@ -250,6 +257,7 @@ public class WeaselCompany {
         for (int i = 0; i < num; i++) {
             int j = rand.nextInt(lang.size());
             languagesList.add(lang.get(j));
+            lang.remove(j);
         }
         return languagesList;
     }
