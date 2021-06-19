@@ -113,14 +113,25 @@ public class Manager extends Staff{
         return duties;
     }
 
-
-
+    public static boolean quit() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nTo go to previous screen enter 'previous', to back to the main menu enter 'quit':");
+        switch (scanner.next()) {
+            case "previous":
+                return false;
+            case "quit":
+                return true;
+            default:
+                System.out.println("You can only type 'previous' or 'quit'!\n");
+                return quit();
+        }
+    }
 
     public static void displayRequests(Manager manager) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Request ID:       From:\n-------------     -------------");
         for (int i = 0; i <manager.requests.size(); i++) {
-            System.out.println((i+1) +"- "+manager.requests.get(i).ID+"         "+ manager.requests.get(i).from.name
+            System.out.println((i+1) +"- "+manager.requests.get(i).ID+"       "+ manager.requests.get(i).from.name
                     + " ("+manager.requests.get(i).from.ID+")");
         }
             System.out.println("Which request do you want to consider?");
@@ -138,7 +149,11 @@ public class Manager extends Staff{
                             break;
                         case "E":
                             printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
+                            break;
                     }
+                    if(quit()) {
+                        displayMainMenu();
+                    } else {displayRequests(manager);}
                 }
                 else {
                     displayRequests(manager);
@@ -154,8 +169,15 @@ public class Manager extends Staff{
                     case "E":
                         printEngineerInfo((Engineer) manager.requests.get(consider-1).from);
                 }
+                if(quit()) {
+                    displayMainMenu();
+                } else {displayRequests(manager);}
             }
 
+    }
+
+    public static void displayMainMenu() {
+        System.out.println("Main menu");
     }
 
     public static void displayInformation(WeaselCompany company) {
@@ -376,6 +398,9 @@ public class Manager extends Staff{
             else {
                 printManagerInfo((Manager) matchedStaff.get(answer-1));
             }
+            if(quit()) {
+                displayMainMenu();
+            } else {printMatched(company,matchedStaff);}
         }
     }
 
