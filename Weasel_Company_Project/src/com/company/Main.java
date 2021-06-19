@@ -15,10 +15,15 @@ public class Main {
         WeaselCompany.createProjects(Company);
 
         WeaselCompany.generateManagers(Company, 3);
-        WeaselCompany.generateDevelopers(Company, 40);
-        WeaselCompany.generateEngineers(Company, 20);
+        WeaselCompany.generateDevelopers(Company, 400);
+        WeaselCompany.generateEngineers(Company, 200);
 
         WeaselCompany.assignProjectsToManagers(Company);
+        WeaselCompany.formCrews(Company);
+
+
+
+
 
 
 

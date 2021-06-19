@@ -40,6 +40,7 @@ public class Manager extends Staff{
 
     public String password;
     public ArrayList<String> projects;
+    public ArrayList<Staff> crew;
     public ArrayList<Request> requests;
 
     public Manager(String name, int age, String ID, String entranceDate,
@@ -48,6 +49,7 @@ public class Manager extends Staff{
         super(name, age, ID, entranceDate, salary, universityName, "", phoneNumber,"M");
         this.password = password;
         this.projects = projects;
+        this.crew = new ArrayList<>();
         this.requests = new ArrayList<>();
     }
 
