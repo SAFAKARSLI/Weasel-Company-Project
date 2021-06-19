@@ -38,6 +38,7 @@ public class WeaselCompany {
         Manager manager = new Manager(managerName.toUpperCase(), 26, "96537234", "6.9.2017", 15700, "Harvard University", projects, "+1 973 276 9075", password);
         Company.managers.add(manager);
         Company.staffs.add(manager);
+
         return manager;
     }
 
@@ -58,7 +59,7 @@ public class WeaselCompany {
 
         ArrayList<String> nameList = new ArrayList<>(Arrays.asList(names.split(" ")));
         for (int i = 0; i < nameList.size(); i++) {
-            Company.projectHistory.add(nameList.get(i));
+            Company.projectHistory.add(nameList.get(i).toUpperCase());
             if (nameList.size() - i < 18) {
                 Company.currentProjects.add(nameList.get(i).toUpperCase());
             }
@@ -236,7 +237,7 @@ public class WeaselCompany {
     private static String generateProjectName(WeaselCompany Company) {
         Random rand = new Random();
         int i = rand.nextInt(Company.currentProjects.size());
-        return "Project " + Company.currentProjects.get(i);
+        return Company.currentProjects.get(i);
     }
 
     private static String generatePhoneNumber() {
@@ -257,6 +258,16 @@ public class WeaselCompany {
             password = password + numbers + alphabet[letterIndex];
         }
         return password;
+    }
+
+    public static void formCrew(WeaselCompany Company, Manager manager) {
+
+        for (int i=0; i<Company.staffs.size(); i++){
+            if(manager.projects.contains(Company.staffs.get(i).projectName)) {
+                manager.crew.add(Company.staffs.get(i));
+            }
+        }
+        manager.crew.add(Company.staffs.get(6));
     }
 
     private static ArrayList<String> generateTools(int num) {
@@ -315,17 +326,61 @@ public class WeaselCompany {
     }
 
     private static Staff pickStaff(WeaselCompany Company) {
-        ArrayList<String> projects = Company.managers.get(0).projects;
+        Random rand = new Random();
+        int i = rand.nextInt(Company.managers.get(0).crew.size());
+        return Company.managers.get(0).crew.get(i);
+    }
+
+    private static String generateRequestType() {
+        ArrayList<String> requestTypes = new ArrayList<>(Arrays.asList("quit","raise","promotion","permission"));
+        Random rand = new Random();
+        int i = rand.nextInt(4);
+        return requestTypes.get(i);
+    }
+
+    private static String generateRequestReason(String requestType) {
+
+        ArrayList<String> requestReasons = new ArrayList<>();
+        requestReasons.add("other");
+
+        switch (requestType) {
+
+            case "quit":
+                requestReasons.add("insufficient salary");
+                requestReasons.add("personal issues");
+                requestReasons.add("health issues");
+                requestReasons.add("incompatibility with staff");
+                break;
+            case "raise":
+            case "promotion":
+                requestReasons.add("financial needs");
+                requestReasons.add("reflection of efficiency");
+                break;
+            case "permission":
+                requestReasons.add("personal issues");
+                requestReasons.add("health issues");
+                requestReasons.add("vacation");
+                break;
+
+        }
+
+        Random rand = new Random();
+        int i = rand.nextInt(requestReasons.size());
+        return requestReasons.get(i);
+    }
+
+    private static String generateExtraMessages() {
+        return "Extra Message";
     }
 
     public static void generateRequests(WeaselCompany Company, int numOfRequests){
         for (int i=0; i<numOfRequests; i++){
             Manager TheManager = Company.managers.get(0);
+            String requestType = generateRequestType();
             Request request = new Request(generateRequestID(), pickStaff(Company), TheManager,
-                    generateRequestType(), generateRequestReason(requestType), generateExtraMessages());
+                    requestType, generateRequestReason(requestType), generateExtraMessages());
             TheManager.requests.add(request);
         }
-
     }
 
 
