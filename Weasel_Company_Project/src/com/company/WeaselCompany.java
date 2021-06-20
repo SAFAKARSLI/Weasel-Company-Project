@@ -369,16 +369,14 @@ public class WeaselCompany {
         return requestReasons.get(i);
     }
 
-    private static String generateExtraMessages() {
-        return "\nExtra Message";
-    }
 
     public void generateRequests(int numOfRequests){
         for (int i=0; i<numOfRequests; i++){
             Manager TheManager = this.managers.get(0);
             String requestType = generateRequestType();
             Request request = new Request(generateRequestID(), this.pickStaff(), TheManager,
-                    requestType, generateRequestReason(requestType), generateExtraMessages());
+                    requestType, generateRequestReason(requestType), "");
+            request.petition = Request.generatePetition(request);
             TheManager.requests.add(request);
         }
     }
@@ -466,14 +464,16 @@ public class WeaselCompany {
             Developer developer = new Developer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     salary, generateUniversityName(), Tools, generateMainTool(Tools), declareRemoteness(),
                     declareTitle(salary), this.generateProjectName(), generatePhoneNumber(), generatePassword());
-            Request jobRequest = new Request(generateRequestID(), developer, manager, "Job Application", "", ""  );
+            Request jobRequest = new Request(generateRequestID(), developer, manager, "job application", "", "");
+            jobRequest.petition = Request.generatePetition(jobRequest);
             manager.inbox.add(jobRequest);
         }
 
         for (int i = 0; i < engNum; i++) {
             Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
                     generateSalary(), generateUniversityName(), this.generateProjectName(), generatePhoneNumber(), generateEngineerArea(), generatePassword());
-            Request jobRequest = new Request(generateRequestID(), engineer, manager, "Job Application", "", ""  );
+            Request jobRequest = new Request(generateRequestID(), engineer, manager, "job application", "", "");
+            jobRequest.petition = Request.generatePetition(jobRequest);
             manager.inbox.add(jobRequest);
         }
     }
