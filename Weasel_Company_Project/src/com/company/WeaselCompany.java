@@ -414,7 +414,7 @@ public class WeaselCompany {
         System.out.println("\n\nMain Menu\n\n" +
                 "1: Display Company Info\n" +
                 "2: Display My Schedule\n" +
-                "3: Open Up My Inbox\n" +
+                "3: Open Up My Inbox ("+manager.inbox.size()+")\n" +
                 "4: Search Company Staffs\n" +
                 "5: Display Requests from My Crew\n" +
                 "6: Make a Request to the CEO\n");
@@ -438,7 +438,7 @@ public class WeaselCompany {
                 Manager.displayToDo(Company, manager, checklist);
                 break;
             case 3:
-            //  Manager.displayInbox(manager);
+                Manager.displayInbox(Company, manager);
                 break;
             case 4:
                 Manager.displayInformation(Company, manager);
@@ -447,10 +447,21 @@ public class WeaselCompany {
                 Manager.displayRequests(Company, manager);
                 break;
             case 6:
-                Manager.makeRequest(Company);
+                Manager.makeRequest(Company, manager);
                 break;
         }
 
+    }
+
+    public static void considerRequest(WeaselCompany company, Manager CEO, Manager manager) {
+        switch ((int) Math.round(Math.random())) {
+            case 1:
+                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"ACCEPTED","", "Your request has been considered and accepted by CEO"));
+                break;
+            case 2:
+                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"REFUSED","","Your request has been considered and refused by CEO"));
+                break;
+        }
     }
 
 }
