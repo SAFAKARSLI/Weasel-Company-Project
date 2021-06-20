@@ -456,6 +456,28 @@ public class WeaselCompany {
 
     }
 
+    public void generateJobApplication(Manager manager, int devNum, int engNum) {
+
+        for (int i = 0; i < devNum; i++) {
+            Random rand = new Random();
+            int langNum = 3 + rand.nextInt(10);
+            ArrayList<String> Tools = generateTools(langNum);
+            int salary = generateSalary();
+            Developer developer = new Developer(generateName(), generateAge(), generateID(), generateEntranceDate(),
+                    salary, generateUniversityName(), Tools, generateMainTool(Tools), declareRemoteness(),
+                    declareTitle(salary), this.generateProjectName(), generatePhoneNumber(), generatePassword());
+            Request jobRequest = new Request(generateRequestID(), developer, manager, "Job Application", "", ""  );
+            manager.inbox.add(jobRequest);
+        }
+
+        for (int i = 0; i < engNum; i++) {
+            Engineer engineer = new Engineer(generateName(), generateAge(), generateID(), generateEntranceDate(),
+                    generateSalary(), generateUniversityName(), this.generateProjectName(), generatePhoneNumber(), generateEngineerArea(), generatePassword());
+            Request jobRequest = new Request(generateRequestID(), engineer, manager, "Job Application", "", ""  );
+            manager.inbox.add(jobRequest);
+        }
+    }
+
     public static void considerRequest(WeaselCompany company, Manager CEO, Manager manager) {
         switch ((int) Math.round(Math.random())) {
             case 0:

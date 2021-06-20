@@ -25,6 +25,7 @@ public class Main {
         Company.formCrews();
 
         Company.generateRequests(4);
+        Company.generateJobApplication(TheManager, 2,2);
 
         WeaselCompany.displayMainMenu(Company, TheManager);
 
