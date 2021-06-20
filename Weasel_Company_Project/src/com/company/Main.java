@@ -17,7 +17,7 @@ public class Main {
 
         Company.createProjects();
 
-        Company.generateManagers(3);
+        Company.generateManagers(2);
         Company.generateDevelopers(400);
         Company.generateEngineers(200);
 
