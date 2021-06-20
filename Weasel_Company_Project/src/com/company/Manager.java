@@ -120,7 +120,7 @@ public class Manager extends Staff{
             if(consider > manager.requests.size()) {
                 System.out.println("Request list does not include '"+consider+"'.\nDid you mean last element of the list?\nType yes or no:");
                 //If user wants to see the last element of the list
-                if(doYouAccept(manager)) {
+                if(doYouAccept()) {
                     printRequest(manager.requests.get(consider-1));
                     System.out.println("Requester Information:\n");
                     switch (manager.requests.get(consider-1).from.job) {
@@ -153,7 +153,7 @@ public class Manager extends Staff{
                 }
                 //Considering the request (accept or refuse)
                 System.out.println("\nDo you accept this request?\nType yes or no:");
-                if(doYouAccept(manager)) {
+                if(doYouAccept()) {
                     System.out.println("You have accepted the request.");
                 } else {
                     System.out.println("You have refused the request.");
@@ -361,6 +361,7 @@ public class Manager extends Staff{
         } else {
             System.out.println("This developer is not working in the office.");
         }
+
     }
 
     public static void printEngineerInfo(Engineer engineer) {
@@ -379,7 +380,7 @@ public class Manager extends Staff{
 
     public static void printMatched(WeaselCompany company, ArrayList<Staff> matchedStaff) {
         Scanner scanner = new Scanner(System.in);
-
+        ArrayList<Staff> upToDateList = new ArrayList<>();
         //Checks if no result
         if(matchedStaff == null) {
             System.out.println("There is no matching result.");
@@ -401,11 +402,51 @@ public class Manager extends Staff{
                 printMatched(company, matchedStaff);
             }
             printStaff(matchedStaff, answer-1);
+            System.out.println("Do you want to see the actions? Type 'yes' or 'no':");
+            if(doYouAccept()) {
+                upToDateList = action(company,matchedStaff,answer-1);
+            }
             if(quit()) {
                 WeaselCompany.displayMainMenu(company, company.managers.get(0));
-            } else {printMatched(company,matchedStaff);}
+            } else {printMatched(company,upToDateList);}
+
         }
     }
+
+    public static ArrayList<Staff> action(WeaselCompany company, ArrayList<Staff> matched, int index) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1: Fire "+matched.get(index).name+" \n" +
+                "2: Give a rise");
+        while(true) {
+            System.out.println("What do you want to do with this staff?");
+            switch (scanner.next()) {
+                case "1":
+                    System.out.println("You fired "+matched.get(index-1).name);
+                    company.staffs.remove(matched.get(index-1));
+                    matched.remove(index);
+                    return matched;
+                case "2":
+                    while(true) {
+                        System.out.println("Please specify preferred rise: ");
+                        int amount = scanner.nextInt();
+                        if(amount <= 0) {
+                            System.out.println("Please provide positive amount.");
+                            continue;
+                        }
+                        else {
+                            System.out.println("\n*\nYou increased "+matched.get(index).name+"'s salary from $"+ matched.get(index).salary+
+                                    " to $"+(matched.get(index).salary+amount)+"\n*\n");
+                            matched.get(index).salary += amount;
+                            printStaff(matched, index);
+                            return matched;
+                        }
+                    }
+                default:
+                    System.out.println("Out of bounds!");
+            }
+        }
+    }
+
 
     public static void printRequest(Request request) {
         System.out.println("\nResult:\n" +
@@ -426,7 +467,7 @@ public class Manager extends Staff{
         Request request =  new Request(ID, manager, company.CEO, type,reason,petition);
         printRequest(request);
         System.out.println("Are you sure, type yes or no:");
-        if(doYouAccept(company.managers.get(0))) {
+        if(doYouAccept()) {
             company.CEO.requests.add(request);
             System.out.println("Your request has been send.\n");
         } else {
@@ -438,9 +479,8 @@ public class Manager extends Staff{
 
     }
 
-    public static boolean doYouAccept(Manager manager) {
+    public static boolean doYouAccept() {
         Scanner scanner = new Scanner(System.in);
-
         switch (scanner.nextLine()) {
             case "yes":
                 return true;
@@ -448,7 +488,7 @@ public class Manager extends Staff{
                 return false;
             default:
                 System.out.println("Please only enter 'yes' or 'no':");
-                return doYouAccept(manager);
+                return doYouAccept();
         }
     }
 
