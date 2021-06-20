@@ -68,7 +68,7 @@ public class Manager extends Staff{
 
     private static ArrayList<String> createDuties(Manager manager, WeaselCompany Company) {
         ArrayList<String> duties = new ArrayList<>();
-        for(int i=0; i<Company.managers.size(); i++) {
+        for(int i=1; i<Company.managers.size(); i++) {
             duties.add("Attend the meeting with Manager " + Company.managers.get(i).name);
         }
         ArrayList<Staff> crewCopy = manager.crew;
