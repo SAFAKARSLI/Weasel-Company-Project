@@ -176,11 +176,15 @@ public class Manager extends Staff{
         }
         System.out.println("\nInbox:");
         for(int i = 0 ; i<manager.inbox.size(); i++) {
-            System.out.println((i+1) + "- "+manager.inbox.get(i).petition);
+            System.out.println((i+1) + ": "+manager.inbox.get(i).type);
         }
-        System.out.println("\nWhich consideration do you want to see?");
+        System.out.println("\nWhich message would you want to open?");
         int number = scanner.nextInt();
         printRequest(manager.inbox.get(number-1));
+        if(!manager.inbox.get(number-1).from.name.equals("KEVIN JOHNS")) {
+            printRequester(manager.inbox.get(number-1));
+            considerRequest(company,manager.inbox.get(number-1));
+        }
         manager.inbox.remove(number-1);
         if(quit()){
             WeaselCompany.displayMainMenu(company, manager);
@@ -188,14 +192,57 @@ public class Manager extends Staff{
     }
 
 
+    public static void printRequester(Request request) {
+        System.out.println("\nName: "+request.from.name+
+                "\nAge: "+ request.from.age+
+                "\nExpected Salary: $"+ request.from.salary+
+                "\nUniversity: "+ request.from.universityName+
+                "\nContact: "+ request.from.phoneNumber+
+                "\nPosition: "+request.from.getClass().getName().substring(request.from.getClass().getName().lastIndexOf(".")+1));
+
+    }
+
+    public static void considerRequest(WeaselCompany company,Request request) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Do you accept this request? Type 'yes' or 'no'");
+        if(doYouAccept()) {
+            switch(request.type) {
+                case "job application":
+                    System.out.println(request.from.name+ " is now employee");
+                    company.staffs.add(request.from);
+                    break;
+                case "quit":
+                    System.out.println("You accepted the quit request. "+request.from.name+" is removed from the company staff list.");
+                    company.staffs.remove(request.from);
+                    break;
+                case "rise":
+                    System.out.println("Please provide rise amount:");
+                    int amount = scanner.nextInt();
+                    System.out.println(request.from.name +"'s salary has been increased from $"+request.from.salary+" to $"+request.from.salary+amount);
+                    request.from.salary += amount;
+                    break;
+                case "promotion":
+                    System.out.println("Promotion has been given to "+ request.from.name);
+                    break;
+                case "permission":
+                    System.out.println("Permission has been given to "+ request.from.name);
+                    break;
+            }
+        }
+        else {
+            System.out.println("You refused the "+request.from.name+"'s "+request.type+" request.");
+        }
+
+    }
+
     public static void displayInformation(WeaselCompany company, Manager manager) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n1- Search by Name\n" +
-                "2- Search by ID\n" +
-                "3- Search by Age\n" +
-                "4- Search by Amount of Salary\n" +
-                "5- Search by College Name\n" +
-                "6- Search by Project Name\n" +
+        System.out.println("\n1: Search by Name\n" +
+                "2: Search by ID\n" +
+                "3: Search by Age\n" +
+                "4: Search by Amount of Salary\n" +
+                "5: Search by College Name\n" +
+                "6: Search by Project Name\n" +
                 "\nPlease filter your search:");
         String answer = scanner.nextLine();
         switch (answer) {
