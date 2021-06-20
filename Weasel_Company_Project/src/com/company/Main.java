@@ -28,18 +28,5 @@ public class Main {
 
         WeaselCompany.displayMainMenu(Company, TheManager);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
