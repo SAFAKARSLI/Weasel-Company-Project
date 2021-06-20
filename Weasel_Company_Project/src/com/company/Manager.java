@@ -47,7 +47,9 @@ public class Manager extends Staff{
         for(int i=0; i<duties.size(); i++){
             System.out.println((i+1) + ": " + duties.get(i));
         }
-        if(quit()) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type anything to quit:");
+        if(scanner.hasNext()) {
             WeaselCompany.displayMainMenu(Company, manager);
         }
     }

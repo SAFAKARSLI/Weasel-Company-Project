@@ -403,7 +403,10 @@ public class WeaselCompany {
         System.out.println("\nNumber of Stuffs: " + this.staffs.size());
         System.out.println("\nNumber of Developers: " + this.developers.size());
         System.out.println("\nNumber of Engineers: " + this.engineers.size());
-        if(Manager.quit()) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type anything to quit:");
+        if(scanner.hasNext()) {
             WeaselCompany.displayMainMenu(company, manager);
         }
     }
@@ -456,10 +459,10 @@ public class WeaselCompany {
     public static void considerRequest(WeaselCompany company, Manager CEO, Manager manager) {
         switch ((int) Math.round(Math.random())) {
             case 0:
-                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"ACCEPTED","", "Your request has been considered and accepted by CEO"));
+                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"ACCEPTED","", "Your request has been considered and accepted by CEO."));
                 break;
             case 1:
-                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"REFUSED","","Your request has been considered and refused by CEO"));
+                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"REFUSED","","Your request has been considered and refused by CEO."));
                 break;
         }
     }
