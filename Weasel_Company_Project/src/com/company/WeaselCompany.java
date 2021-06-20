@@ -418,15 +418,16 @@ public class WeaselCompany {
                 "3: Open Up My Inbox ("+manager.inbox.size()+")\n" +
                 "4: Search Company Staffs\n" +
                 "5: Display Requests from My Crew\n" +
-                "6: Make a Request to the CEO\n");
+                "6: Make a Request to the CEO\n" +
+                "7: Quit the System\n");
 
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
         System.out.println("Type your choice:");
-        while(choice < 1 || choice > 6) {
+        while(choice < 1 || choice > 7) {
             choice = scanner.nextInt();
             scanner.nextLine();
-            if(choice < 1 || choice > 6){
+            if(choice < 1 || choice > 7){
                 System.out.println("Type one of the numbers above:");
             }
         }
