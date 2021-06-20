@@ -455,11 +455,11 @@ public class WeaselCompany {
 
     public static void considerRequest(WeaselCompany company, Manager CEO, Manager manager) {
         switch ((int) Math.round(Math.random())) {
-            case 1:
-                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"ACCEPTED","", "Your request has been considered and accepted by CEO."));
+            case 0:
+                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"ACCEPTED","", "Your request has been considered and accepted by CEO"));
                 break;
-            case 2:
-                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"REFUSED","","Your request has been considered and refused by CEO."));
+            case 1:
+                manager.inbox.add(new Request(generateRequestID(),CEO,manager,"REFUSED","","Your request has been considered and refused by CEO"));
                 break;
         }
     }
