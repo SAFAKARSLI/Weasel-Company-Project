@@ -80,13 +80,16 @@ public class Request {
 
             case "promotion":
                 String aOrAns = "";
+                String pos;
                 if(request.from.job.equals("E")){
                     aOrAns = "an ";
+                    pos = "Engineer";
                 } else {
                     aOrAns = "a ";
+                    pos = "Developer";
                 }
                 possiblePetitions.add("I am writing to formally request a promotion to my position.\n" +
-                        "As " + aOrAns + request.from.job + " with all these years at Weasel Company,\n" +
+                        "As " + aOrAns + pos + " with all these years at Weasel Company,\n" +
                         "I have always been ready and able when asked to take on additional work and new job responsibilities.\n" +
                         "I believe a review of my track record with the company, my recent achievements in Project " + request.from.projectName + ",\n" +
                         "will demonstrate justification for a promotion.");
@@ -95,7 +98,7 @@ public class Request {
                         "Mission-" + rand.nextInt(5) + " of Project " + request.from.projectName +
                         "\nMission-" + (5 + rand.nextInt(5)) + " of Project " + request.from.projectName+
                         "\nMission-" + (10 + rand.nextInt(5)) + " of Project " + request.from.projectName+
-                        "I believe these all justify a promotion.");
+                        " I believe these all justify a promotion.");
                 possiblePetitions.add("In order to simplify your consideration I would like to share some of the accomplishments of mine in the following missions: :\n" +
                         "Mission-" + rand.nextInt(5) + " of Project " + request.from.projectName +
                         "\nMission-" + (5 + rand.nextInt(5)) + " of Project " + request.from.projectName+

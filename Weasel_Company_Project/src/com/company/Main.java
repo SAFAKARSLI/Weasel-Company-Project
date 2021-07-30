@@ -17,14 +17,14 @@ public class Main {
 
         Company.createProjects();
 
-        Company.generateManagers(2);
-        Company.generateDevelopers(400);
-        Company.generateEngineers(200);
+        Company.generateManagers(3);
+        Company.generateDevelopers(200);
+        Company.generateEngineers(400);
 
         Company.assignProjectsToManagers();
         Company.formCrews();
 
-        Company.generateRequests(4);
+        Company.generateRequests(8);
         Company.generateJobApplication(TheManager, 2,2);
 
         WeaselCompany.displayMainMenu(Company, TheManager);
